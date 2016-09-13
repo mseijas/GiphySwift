@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6043C4621D88612C003D8084 /* GiphyRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6043C4611D88612C003D8084 /* GiphyRequest.swift */; };
 		606EA42E1D878CC300F7FEE0 /* GiphySwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 606EA4241D878CC300F7FEE0 /* GiphySwift.framework */; };
 		606EA4331D878CC300F7FEE0 /* GiphySwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606EA4321D878CC300F7FEE0 /* GiphySwiftTests.swift */; };
 		606EA4351D878CC300F7FEE0 /* GiphySwift.h in Headers */ = {isa = PBXBuildFile; fileRef = 606EA4271D878CC300F7FEE0 /* GiphySwift.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -25,6 +26,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6043C4611D88612C003D8084 /* GiphyRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiphyRequest.swift; sourceTree = "<group>"; };
 		606EA4241D878CC300F7FEE0 /* GiphySwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GiphySwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		606EA4271D878CC300F7FEE0 /* GiphySwift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GiphySwift.h; sourceTree = "<group>"; };
 		606EA4281D878CC300F7FEE0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				606EA4401D878E5000F7FEE0 /* Giphy.swift */,
+				6043C4611D88612C003D8084 /* GiphyRequest.swift */,
 				606EA43E1D878CEF00F7FEE0 /* Configuration.plist */,
 				606EA4421D878E5B00F7FEE0 /* Supporting Files */,
 			);
@@ -215,6 +218,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				606EA4411D878E5000F7FEE0 /* Giphy.swift in Sources */,
+				6043C4621D88612C003D8084 /* GiphyRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,6 +426,7 @@
 				606EA43A1D878CC300F7FEE0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		606EA43B1D878CC300F7FEE0 /* Build configuration list for PBXNativeTarget "GiphySwiftTests" */ = {
 			isa = XCConfigurationList;
@@ -430,6 +435,7 @@
 				606EA43D1D878CC300F7FEE0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
