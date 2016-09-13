@@ -8,8 +8,12 @@
 
 import Foundation
 
+enum Result<T> {
+    case success(result: T)
+    case error(_: Error)
+}
+
 struct Giphy {
-    
     typealias RequestResult = (Data?, URLResponse?, Error?) -> Void
     
     static let host = "api.giphy.com"
@@ -38,7 +42,7 @@ struct Giphy {
         Giphy.apiKey = apiKey.key
     }
     
-    static func request(_ endpoint: GiphyRequest.Gif) {
+    static func request(_ endpoint: GiphyRequest.Gif, limit: Int = 10, offset: Int = 0, rating: Rating? = nil, completionHandler: (Result<Any>) -> Void) {
         let url = endpoint.url
         let urlRequest = URLRequest(url: url)
         

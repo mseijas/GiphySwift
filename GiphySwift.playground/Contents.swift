@@ -41,6 +41,8 @@ public struct Giphy {
     }
 }
 
+
+
 //protocol GiphyEndpoint {
 //    func request()
 //}
