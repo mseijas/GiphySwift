@@ -13,14 +13,14 @@ struct GiphyRequest { }
 
 // MARK: - GiphyRequset: Gif
 extension GiphyRequest {
-    enum Gif {
+    enum Gif: GiphyRequestable {
         
         case withId(_: String)
         case withIds(_: [String])
         case trending
         
         static private var urlPrefix = "/gifs"
-        fileprivate var urlComponents: String {
+        internal var urlComponents: String {
             let url = Gif.urlPrefix
             
             switch self {
@@ -34,7 +34,7 @@ extension GiphyRequest {
             case phrase(_: String)
             
             static private var urlPrefix = Gif.urlPrefix
-            fileprivate var urlComponents: String {
+            internal var urlComponents: String {
                 let url = Search.urlPrefix
                 
                 switch self {
@@ -47,7 +47,7 @@ extension GiphyRequest {
             case phrase(_: String)
             
             static private var urlPrefix = Gif.urlPrefix + "/translate"
-            fileprivate var urlComponents: String {
+            internal var urlComponents: String {
                 let url = Translate.urlPrefix
                 
                 switch self {
@@ -60,7 +60,7 @@ extension GiphyRequest {
             case tag(_: String)
             
             static private var urlPrefix = Gif.urlPrefix + "/random"
-            fileprivate var urlComponents: String {
+            internal var urlComponents: String {
                 let url = Random.urlPrefix
                 
                 switch self {
@@ -75,12 +75,12 @@ extension GiphyRequest {
 
 // MARK: - GiphyRequset: Sticker
 extension GiphyRequest {
-    enum Sticker {
+    enum Sticker: GiphyRequestable {
         
         case trending
         
         static private var urlPrefix = "/stickers"
-        fileprivate var urlComponents: String {
+        internal var urlComponents: String {
             let url = Sticker.urlPrefix
             
             switch self {
@@ -92,7 +92,7 @@ extension GiphyRequest {
             case phrase(_: String)
             
             static private var urlPrefix = Sticker.urlPrefix
-            fileprivate var urlComponents: String {
+            internal var urlComponents: String {
                 let url = Search.urlPrefix
                 
                 switch self {
@@ -105,7 +105,7 @@ extension GiphyRequest {
             case phrase(_: String)
             
             static private var urlPrefix = Sticker.urlPrefix + "/translate"
-            fileprivate var urlComponents: String {
+            internal var urlComponents: String {
                 let url = Translate.urlPrefix
                 
                 switch self {
@@ -118,7 +118,7 @@ extension GiphyRequest {
             case tag(_: String)
             
             static private var urlPrefix = Sticker.urlPrefix + "/random"
-            fileprivate var urlComponents: String {
+            internal var urlComponents: String {
                 let url = Random.urlPrefix
                 
                 switch self {
@@ -132,7 +132,7 @@ extension GiphyRequest {
 
 
 // MARK: - GiphyRequestable
-fileprivate protocol GiphyRequestable {
+internal protocol GiphyRequestable {
     var urlComponents: String { get }
     var url: URL { get }
 }
