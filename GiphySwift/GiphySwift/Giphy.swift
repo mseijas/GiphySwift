@@ -10,6 +10,8 @@ import Foundation
 
 struct Giphy {
     
+    typealias RequestResult = (Data?, URLResponse?, Error?) -> Void
+    
     static let host = "api.giphy.com"
     static let apiVersion = "v1"
     static let baseUrl = "https://\(host)/\(apiVersion)"
@@ -37,9 +39,10 @@ struct Giphy {
     }
     
     static func request(_ endpoint: GiphyRequest.Gif) {
-        print("SOMETHING SOMETHING")
-        let urlRequest = URLRequest(url: endpoint.url)
-        URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+        let url = endpoint.url
+        let urlRequest = URLRequest(url: url)
+        
+        Giphy.dataTask(with: urlRequest) { (data, response, error) in
             print("data: \(data)")
             print("response: \(response)")
             print("error: \(error)")
@@ -50,7 +53,11 @@ struct Giphy {
                 print(json)
                 
             }
-        }.resume()
+        }
     }
-
+    
+    static private func dataTask(with urlRequest: URLRequest, block: @escaping RequestResult) {
+        URLSession.shared.dataTask(with: urlRequest, completionHandler: block).resume()
+    }
+    
 }
