@@ -13,15 +13,16 @@ enum Result<T> {
     case error(_: Error)
 }
 
+typealias GiphyRequestResult = Result<[GiphyResult]>
+
+
 struct Giphy {
-    typealias RequestResult = (Data?, URLResponse?, Error?) -> Void
-    
     static let host = "api.giphy.com"
     static let apiVersion = "v1"
     static let baseUrl = "https://\(host)/\(apiVersion)"
     static let publicApiKey = "dc6zaTOxFJmzC"
     
-    enum Rating {
+    enum Rating: String {
         case y, g, pg, pg13, r
     }
     
@@ -46,22 +47,34 @@ struct Giphy {
         let url = endpoint.url
         let urlRequest = URLRequest(url: url)
         
-        Giphy.dataTask(with: urlRequest) { (data, response, error) in
-            print("data: \(data)")
-            print("response: \(response)")
-            print("error: \(error)")
-            
-            if let data = data,
-                let json = try? JSONSerialization.jsonObject(with: data, options: []) {
-                
-                print(json)
-                
+        dataTask(with: urlRequest) { (result) in
+            switch result {
+            case .success(let giphyResults): print(giphyResults)
+            case .error(let error): print("Error: \(error)")
             }
         }
     }
     
-    static private func dataTask(with urlRequest: URLRequest, block: @escaping RequestResult) {
-        URLSession.shared.dataTask(with: urlRequest, completionHandler: block).resume()
+    static private func dataTask(with urlRequest: URLRequest, completionHandler: @escaping (GiphyRequestResult) -> Void) {
+        URLSession.shared.dataTask(with: urlRequest){ (data, response, error) in
+            
+            // print("data: \(data)")
+            // print("response: \(response)")
+            // print("error: \(error)")
+
+            
+            if let data = data, error == nil {
+                let _ = try? JSONSerialization.jsonObject(with: data, options: [])
+
+                let giphyResults = GiphyResult()
+                completionHandler(GiphyRequestResult.success(result: [giphyResults]))
+            }
+            
+            if let error = error {
+                completionHandler(GiphyRequestResult.error(error))
+            }
+            
+        }.resume()
     }
     
 }
