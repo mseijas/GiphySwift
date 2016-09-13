@@ -9,5 +9,6 @@
 import Foundation
 
 struct GiphyResult {
-    
+    let json: Any?
 }
+

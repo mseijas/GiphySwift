@@ -17,10 +17,6 @@ typealias GiphyRequestResult = Result<[GiphyResult]>
 
 
 struct Giphy {
-    static let host = "api.giphy.com"
-    static let apiVersion = "v1"
-    static let baseUrl = "https://\(host)/\(apiVersion)"
-    static let publicApiKey = "dc6zaTOxFJmzC"
     
     enum Rating: String {
         case y, g, pg, pg13, r
@@ -31,7 +27,7 @@ struct Giphy {
         
         var key: String {
             switch self {
-            case .public: return publicApiKey
+            case .public: return Configuration.publicApiKey
             case .private(let key): return key
             }
         }
@@ -64,9 +60,9 @@ struct Giphy {
 
             
             if let data = data, error == nil {
-                let _ = try? JSONSerialization.jsonObject(with: data, options: [])
+                let json = try? JSONSerialization.jsonObject(with: data, options: [])
 
-                let giphyResults = GiphyResult()
+                let giphyResults = GiphyResult(json: json)
                 completionHandler(GiphyRequestResult.success(result: [giphyResults]))
             }
             

@@ -139,7 +139,7 @@ internal protocol GiphyRequestable {
 
 extension GiphyRequestable {
     var url: URL {
-        let url = Giphy.baseUrl + urlComponents + "&api_key=\(Giphy.apiKey)"
+        let url = Configuration.baseUrl + urlComponents + "&api_key=\(Giphy.apiKey)"
         return URL(string: url)!
     }
 }
