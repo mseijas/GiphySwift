@@ -8,21 +8,15 @@
 
 import Foundation
 
-enum Result<T> {
-    case success(result: T)
-    case error(_: Error)
-}
+public typealias GiphyRequestResult = GiphyResult<[GiphyImageResult]>
 
-typealias GiphyRequestResult = Result<[GiphyResult]>
-
-
-struct Giphy {
+public struct Giphy {
     
-    enum Rating: String {
+    public enum Rating: String {
         case y, g, pg, pg13, r
     }
     
-    enum ApiKey {
+    public enum ApiKey {
         case `public`, `private`(key: String)
         
         var key: String {
@@ -35,11 +29,12 @@ struct Giphy {
     
     private(set) static var apiKey = ApiKey.public.key
     
-    func configure(with apiKey: ApiKey) {
+    public static func configure(with apiKey: ApiKey) {
         Giphy.apiKey = apiKey.key
     }
     
-    static func request(_ endpoint: GiphyRequest.Gif, limit: Int = 10, offset: Int = 0, rating: Rating? = nil, completionHandler: (GiphyRequestResult) -> Void) {
+    static public func request(_ endpoint: GiphyRequest.Gif, limit: Int = 10, offset: Int = 0, rating: Rating? = nil, completionHandler: (GiphyRequestResult) -> Void) {
+        
         let url = endpoint.url
         let urlRequest = URLRequest(url: url)
         
@@ -57,17 +52,39 @@ struct Giphy {
             // print("data: \(data)")
             // print("response: \(response)")
             // print("error: \(error)")
-
-            
-            if let data = data, error == nil {
-                let json = try? JSONSerialization.jsonObject(with: data, options: [])
-
-                let giphyResults = GiphyResult(json: json)
-                completionHandler(GiphyRequestResult.success(result: [giphyResults]))
-            }
             
             if let error = error {
                 completionHandler(GiphyRequestResult.error(error))
+            }
+            
+            if let data = data,
+                error == nil,
+                let jsonDict = try? JSONSerialization.jsonObject(with: data, options: []) as? [String:AnyObject],
+                let json = jsonDict {
+                
+                guard let responseMeta = json["meta"] as? [String:AnyObject],
+                    let status = responseMeta["status"] as? Int,
+                    let msg = responseMeta["msg"] as? String
+                else {
+                    let error = NSError(domain: "com.GiphySwift", code: 900, userInfo: ["Reason":"Could not parse JSON response"])
+                    completionHandler(GiphyRequestResult.error(error))
+                    return
+                }
+                
+                guard status == 200 else {
+                    let error = NSError(domain: "com.GiphySwift", code: status, userInfo: ["Reason":msg])
+                    completionHandler(GiphyRequestResult.error(error))
+                    return
+                }
+                
+                guard let data = json["data"] as? [[String:AnyObject]] else {
+                    let error = NSError(domain: "com.GiphySwift", code: 900, userInfo: ["Reason":"Could not parse data property from JSON response"])
+                    completionHandler(GiphyRequestResult.error(error))
+                    return
+                }
+                
+                let giphyResults = data.flatMap(GiphyImageResult.init)
+                completionHandler(GiphyRequestResult.success(result: giphyResults))
             }
             
         }.resume()

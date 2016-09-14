@@ -10,21 +10,21 @@ import Foundation
 
 struct Configuration {
     
-    static private var plist: [String: AnyObject] {
-        let plistPath = Bundle.main.path(forResource: "Configuration", ofType: "plist")!
-        return NSDictionary(contentsOfFile: plistPath) as! [String: AnyObject]
-    }
+//    static private var plist: [String: AnyObject] {
+//        let plistPath = Bundle.main.path(forResource: "Configuration", ofType: "plist")!
+//        return NSDictionary(contentsOfFile: plistPath) as! [String: AnyObject]
+//    }
     
     static var host: String {
-        return plist["host"] as! String
+        return "api.giphy.com"
     }
     
     static var apiVersion: String {
-        return plist["apiVersion"] as! String
+        return "v1"
     }
     
     static var publicApiKey: String {
-        return plist["publicApiKey"] as! String
+        return "dc6zaTOxFJmzC"
     }
     
     static var baseUrl: String {

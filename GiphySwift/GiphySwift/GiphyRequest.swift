@@ -9,11 +9,11 @@
 import Foundation
 
 
-struct GiphyRequest { }
+public struct GiphyRequest { }
 
 // MARK: - GiphyRequset: Gif
 extension GiphyRequest {
-    enum Gif: GiphyRequestable {
+    public enum Gif: GiphyRequestable {
         
         case withId(_: String)
         case withIds(_: [String])
@@ -30,7 +30,7 @@ extension GiphyRequest {
             }
         }
         
-        enum Search: GiphyRequestable {
+        public enum Search: GiphyRequestable {
             case phrase(_: String)
             
             static private var urlPrefix = Gif.urlPrefix
@@ -43,7 +43,7 @@ extension GiphyRequest {
             }
         }
         
-        enum Translate: GiphyRequestable {
+        public enum Translate: GiphyRequestable {
             case phrase(_: String)
             
             static private var urlPrefix = Gif.urlPrefix + "/translate"
@@ -56,7 +56,7 @@ extension GiphyRequest {
             }
         }
         
-        enum Random: GiphyRequestable {
+        public enum Random: GiphyRequestable {
             case tag(_: String)
             
             static private var urlPrefix = Gif.urlPrefix + "/random"
@@ -75,7 +75,7 @@ extension GiphyRequest {
 
 // MARK: - GiphyRequset: Sticker
 extension GiphyRequest {
-    enum Sticker: GiphyRequestable {
+    public enum Sticker: GiphyRequestable {
         
         case trending
         
@@ -88,7 +88,7 @@ extension GiphyRequest {
             }
         }
         
-        enum Search: GiphyRequestable {
+        public enum Search: GiphyRequestable {
             case phrase(_: String)
             
             static private var urlPrefix = Sticker.urlPrefix
@@ -101,7 +101,7 @@ extension GiphyRequest {
             }
         }
         
-        enum Translate: GiphyRequestable {
+        public enum Translate: GiphyRequestable {
             case phrase(_: String)
             
             static private var urlPrefix = Sticker.urlPrefix + "/translate"
@@ -114,7 +114,7 @@ extension GiphyRequest {
             }
         }
         
-        enum Random: GiphyRequestable {
+        public enum Random: GiphyRequestable {
             case tag(_: String)
             
             static private var urlPrefix = Sticker.urlPrefix + "/random"
@@ -139,7 +139,7 @@ internal protocol GiphyRequestable {
 
 extension GiphyRequestable {
     var url: URL {
-        let url = Configuration.baseUrl + urlComponents + "&api_key=\(Giphy.apiKey)"
+        let url = Configuration.baseUrl + urlComponents + "?api_key=\(Giphy.apiKey)"
         return URL(string: url)!
     }
 }
