@@ -39,7 +39,7 @@ struct Giphy {
         Giphy.apiKey = apiKey.key
     }
     
-    static func request(_ endpoint: GiphyRequest.Gif, limit: Int = 10, offset: Int = 0, rating: Rating? = nil, completionHandler: (Result<Any>) -> Void) {
+    static func request(_ endpoint: GiphyRequest.Gif, limit: Int = 10, offset: Int = 0, rating: Rating? = nil, completionHandler: (GiphyRequestResult) -> Void) {
         let url = endpoint.url
         let urlRequest = URLRequest(url: url)
         
