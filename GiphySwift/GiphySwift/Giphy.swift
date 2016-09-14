@@ -9,6 +9,7 @@
 import Foundation
 
 public typealias GiphyRequestResult = GiphyResult<[GiphyImageResult]>
+typealias JSON = [String:AnyObject]
 
 public struct Giphy {
     
@@ -59,10 +60,10 @@ public struct Giphy {
             
             if let data = data,
                 error == nil,
-                let jsonDict = try? JSONSerialization.jsonObject(with: data, options: []) as? [String:AnyObject],
+                let jsonDict = try? JSONSerialization.jsonObject(with: data, options: []) as? JSON,
                 let json = jsonDict {
                 
-                guard let responseMeta = json["meta"] as? [String:AnyObject],
+                guard let responseMeta = json["meta"] as? JSON,
                     let status = responseMeta["status"] as? Int,
                     let msg = responseMeta["msg"] as? String
                 else {
@@ -77,14 +78,21 @@ public struct Giphy {
                     return
                 }
                 
-                guard let data = json["data"] as? [[String:AnyObject]] else {
+                guard let data = json["data"] as? [JSON] else {
                     let error = NSError(domain: "com.GiphySwift", code: 900, userInfo: ["Reason":"Could not parse data property from JSON response"])
                     completionHandler(GiphyRequestResult.error(error))
                     return
                 }
                 
+                guard let pagination = json["pagination"] as? JSON else {
+                    let error = NSError(domain: "com.GiphySwift", code: 900, userInfo: ["Reason":"Could not parse pagination property from JSON response"])
+                    completionHandler(GiphyRequestResult.error(error))
+                    return
+                }
+                
                 let giphyResults = data.flatMap(GiphyImageResult.init)
-                completionHandler(GiphyRequestResult.success(result: giphyResults))
+                let giphyResultProperties = GiphyResultProperties(json: pagination)
+                completionHandler(GiphyRequestResult.success(result: giphyResults, properties: giphyResultProperties))
             }
             
         }.resume()

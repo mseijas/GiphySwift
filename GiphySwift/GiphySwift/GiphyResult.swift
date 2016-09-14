@@ -9,6 +9,6 @@
 import Foundation
 
 public enum GiphyResult<T> {
-    case success(result: T)
+    case success(result: T, properties: GiphyResultProperties?)
     case error(_: Error)
 }

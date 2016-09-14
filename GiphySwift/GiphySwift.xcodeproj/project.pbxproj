@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		600A11FA1D8986770057C2D4 /* GiphyResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600A11F91D8986770057C2D4 /* GiphyResult.swift */; };
+		6043205E1D89978000FD9940 /* GiphyResultProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6043205D1D89978000FD9940 /* GiphyResultProperties.swift */; };
 		6043C4621D88612C003D8084 /* GiphyRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6043C4611D88612C003D8084 /* GiphyRequest.swift */; };
 		6043C4641D88702D003D8084 /* GiphyImageResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6043C4631D88702D003D8084 /* GiphyImageResult.swift */; };
 		606EA42E1D878CC300F7FEE0 /* GiphySwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 606EA4241D878CC300F7FEE0 /* GiphySwift.framework */; };
@@ -30,6 +31,7 @@
 
 /* Begin PBXFileReference section */
 		600A11F91D8986770057C2D4 /* GiphyResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiphyResult.swift; sourceTree = "<group>"; };
+		6043205D1D89978000FD9940 /* GiphyResultProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiphyResultProperties.swift; sourceTree = "<group>"; };
 		6043C4611D88612C003D8084 /* GiphyRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiphyRequest.swift; sourceTree = "<group>"; };
 		6043C4631D88702D003D8084 /* GiphyImageResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiphyImageResult.swift; sourceTree = "<group>"; };
 		606EA4241D878CC300F7FEE0 /* GiphySwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GiphySwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -85,6 +87,7 @@
 			children = (
 				606EA4401D878E5000F7FEE0 /* Giphy.swift */,
 				600A11F91D8986770057C2D4 /* GiphyResult.swift */,
+				6043205D1D89978000FD9940 /* GiphyResultProperties.swift */,
 				6043C4631D88702D003D8084 /* GiphyImageResult.swift */,
 				6043C4611D88612C003D8084 /* GiphyRequest.swift */,
 				606FDF1E1D8874FB00FE8EEB /* Configuration.swift */,
@@ -227,6 +230,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				600A11FA1D8986770057C2D4 /* GiphyResult.swift in Sources */,
+				6043205E1D89978000FD9940 /* GiphyResultProperties.swift in Sources */,
 				606EA4411D878E5000F7FEE0 /* Giphy.swift in Sources */,
 				6043C4641D88702D003D8084 /* GiphyImageResult.swift in Sources */,
 				606FDF1F1D8874FB00FE8EEB /* Configuration.swift in Sources */,

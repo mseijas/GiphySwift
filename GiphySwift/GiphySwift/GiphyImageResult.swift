@@ -59,7 +59,7 @@ public struct GiphyImageResult {
 
     }
 
-    private let json: [String:AnyObject]
+    private let json: JSON
 //
 //    let id: String
 //    let slug: String
@@ -75,7 +75,7 @@ public struct GiphyImageResult {
 //
 //    let images: Images
     
-    init?(json: [String:AnyObject]) {
+    init?(json: JSON) {
         self.json = json
     }
     

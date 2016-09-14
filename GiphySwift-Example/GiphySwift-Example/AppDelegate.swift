@@ -19,7 +19,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Giphy.configure(with: .public)
         
         Giphy.request(.trending) { (requestResult) in
-            print(requestResult)
+            switch requestResult {
+            case .success(let result, let properties):
+                print("** RESULT **")
+                print(result)
+                print("** PROPERTIES **")
+                print(properties)
+            case .error(let error): print(error)
+            }
         }
         
         return true
