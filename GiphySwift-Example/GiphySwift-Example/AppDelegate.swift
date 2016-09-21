@@ -23,9 +23,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             case .success(let result, let properties):
                 print("** RESULT **")
                 print(result)
+                //if let first = result.first {
+                    let first = result.first
+                    let importDate = first?.importDate
+                    print("** IMPORT DATE **")
+                
+                    print (importDate?.description(with: Locale.current))
+                    print("***")
+                //}
+                
                 print("** PROPERTIES **")
                 print(properties)
-            case .error(let error): print(error)
+            case .error(let error): print("^ ERROR: \(error)")
             }
         }
         

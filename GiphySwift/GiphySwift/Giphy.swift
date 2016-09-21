@@ -9,7 +9,14 @@
 import Foundation
 
 public typealias GiphyRequestResult = GiphyResult<[GiphyImageResult]>
+public typealias KByte = Int
 typealias JSON = [String:AnyObject]
+
+public enum GiphyResult<T> {
+    case success(result: T, properties: GiphyResultProperties?)
+    case error(_: Error)
+}
+
 
 public struct Giphy {
     
@@ -28,23 +35,26 @@ public struct Giphy {
         }
     }
     
+    
+    
+    static private let _dateFormatter = DateFormatter()
+    internal static var dateFormatter: DateFormatter {
+        Giphy._dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return Giphy._dateFormatter
+    }
+    
     private(set) static var apiKey = ApiKey.public.key
     
     public static func configure(with apiKey: ApiKey) {
         Giphy.apiKey = apiKey.key
     }
     
-    static public func request(_ endpoint: GiphyRequest.Gif, limit: Int = 10, offset: Int = 0, rating: Rating? = nil, completionHandler: (GiphyRequestResult) -> Void) {
+    static public func request(_ endpoint: GiphyRequest.Gif, limit: Int = 10, offset: Int = 0, rating: Rating? = nil, completionHandler: @escaping (GiphyRequestResult) -> Void) {
         
         let url = endpoint.url
         let urlRequest = URLRequest(url: url)
         
-        dataTask(with: urlRequest) { (result) in
-            switch result {
-            case .success(let giphyResults): print(giphyResults)
-            case .error(let error): print("Error: \(error)")
-            }
-        }
+        dataTask(with: urlRequest, completionHandler: completionHandler)
     }
     
     static private func dataTask(with urlRequest: URLRequest, completionHandler: @escaping (GiphyRequestResult) -> Void) {

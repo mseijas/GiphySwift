@@ -8,107 +8,172 @@
 
 import Foundation
 
-protocol GiphyImage { }
-protocol GiphyImageDownsampled {
-	var url: String { get }
-	var size: (width: Int, height: Int) { get }
-
-}
-
-protocol GiphyWebPFile {
-
-}
-
-protocol GiphyMP4File {
-	
-}
-
-/*
-url: "http://media0.giphy.com/media/feqkVgjJpYtjy/200_d.gif",
-                    width: "445",
-                    height: "200",
-                    size: "183225",
-                    webp: "http://media0.giphy.com/media/feqkVgjJpYtjy/200_d.webp",
-                    webp_size: "89516"
-*/
-
 public struct GiphyImageResult {
 
-	struct Url {
-    	let base: String
-    	let bitly: String
-    	let bitlyGif: String
-    	let embed: String
+	public struct Url {
+    	public let base: String
+    	public let bitly: String
+    	public let bitlyGif: String
+    	public let embed: String
     }
 
-    struct User {
-    	let username: String
-    	let displayName: String?
-    	let profileUrl: String?
-    	let bannerUrl: String?
-    	let avatarUrl: String?
+    public struct User {
+    	public let username: String
+    	public let displayName: String?
+    	public let profileUrl: String?
+    	public let bannerUrl: String?
+    	public let avatarUrl: String?
+        
+        init?(username: String?, displayName: String? = nil, profileUrl: String? = nil, bannerUrl: String? = nil, avatarUrl: String? = nil) {
+            guard let username = username, username.isEmpty == false else { return nil }
+            self.username = username
+            self.displayName = displayName
+            self.profileUrl = profileUrl
+            self.bannerUrl = bannerUrl
+            self.avatarUrl = avatarUrl
+        }
     }
 
-    struct Source {
-    	let url: String
-    	let topLevelDomain: String
-    	let postUrl: String
+    public struct Source {
+    	public let url: String
+    	public let topLevelDomain: String
+    	public let postUrl: String
+    }
+    
+    public struct Images {
+        public let fixedHeight: Giphy.Image.FixedHeight
+        public let fixedWidth: Giphy.Image.FixedWidth
+        public let original: Giphy.Image.Original
+        public let downsized: Giphy.Image.Downsized
+        
+        init?(json: JSON) {
+            guard let fixedHeightStillJSON = json["fixed_height_still"] as? JSON,
+                let fixedHeightDownsampledJSON = json["fixed_height_downsampled"] as? JSON,
+                let fixedHeightSmallStillJSON = json["fixed_height_small_still"] as? JSON,
+                let fixedHeightSmallJSON = json["fixed_height_small"] as? JSON,
+                let fixedHeightJSON = json["fixed_height"] as? JSON
+            else {
+                print("[GiphySwift] Warning: Could not parse FixedHeight JSON image properties")
+                return nil
+            }
+            
+            guard let fixedWidthStillJSON = json["fixed_width_still"] as? JSON,
+                let fixedWidthDownsampledJSON = json["fixed_width_downsampled"] as? JSON,
+                let fixedWidthSmallStillJSON = json["fixed_width_small_still"] as? JSON,
+                let fixedWidthSmallJSON = json["fixed_width_small"] as? JSON,
+                let fixedWidthJSON = json["fixed_width"] as? JSON
+            else {
+                print("[GiphySwift] Warning: Could not parse FixedWidth JSON image properties")
+                return nil
+            }
+            
+            guard let downsizedStillJSON = json["downsized_still"] as? JSON,
+                let downsizedLargeJSON = json["downsized_large"] as? JSON,
+                let downsizedJSON = json["downsized"] as? JSON
+            else {
+                print("[GiphySwift] Warning: Could not parse Downsized JSON image properties")
+                return nil
+            }
+            
+            guard let originalStillJSON = json["original_still"] as? JSON,
+                let originalJSON = json["original"] as? JSON
+            else {
+                print("[GiphySwift] Warning: Could not parse Original JSON image properties")
+                return nil
+            }
+            
+            guard let fixedHeightStill = Giphy.Image.Still(json: fixedHeightStillJSON),
+                let fixedHeightDownsampled = Giphy.Image.Downsampled(json: fixedHeightDownsampledJSON),
+                let fixedHeightSmallStill = Giphy.Image.Still(json: fixedHeightSmallStillJSON),
+                let fixedHeightSmall = Giphy.Image.Small(json: fixedHeightSmallJSON, still: fixedHeightSmallStill),
+                let fixedHeight = Giphy.Image.FixedHeight(fixedHeight: fixedHeightJSON, downsampled: fixedHeightDownsampled, small: fixedHeightSmall, still: fixedHeightStill)
+            else { return nil }
+            
+            self.fixedHeight = fixedHeight
+            
+            guard let fixedWidthStill = Giphy.Image.Still(json: fixedWidthStillJSON),
+                let fixedWidthDownsampled = Giphy.Image.Downsampled(json: fixedWidthDownsampledJSON),
+                let fixedWidthSmallStill = Giphy.Image.Still(json: fixedWidthSmallStillJSON),
+                let fixedWidthSmall = Giphy.Image.Small(json: fixedWidthSmallJSON, still: fixedWidthSmallStill),
+                let fixedWidth = Giphy.Image.FixedWidth(fixedWidth: fixedWidthJSON, downsampled: fixedWidthDownsampled, small: fixedWidthSmall, still: fixedWidthStill)
+            else { return nil }
+            
+            self.fixedWidth = fixedWidth
+            
+            guard let downsizedStill = Giphy.Image.Still(json: downsizedStillJSON),
+                let downsizedLarge = Giphy.Image.Large(json: downsizedLargeJSON),
+                let downsized = Giphy.Image.Downsized(json: downsizedJSON, still: downsizedStill, large: downsizedLarge)
+            else { return nil }
+            
+            self.downsized = downsized
+            
+            guard let originalStill = Giphy.Image.Still(json: originalStillJSON),
+                let original = Giphy.Image.Original(json: originalJSON, still: originalStill)
+            else { return nil }
+            
+            self.original = original
+        }
     }
 
-    struct Images {
+    public let id: String
+    public let slug: String
+    public let url: Url
+    public let source: Source
+    public let user: User?
+    public let rating: Giphy.Rating
+    public let caption: String?
+    public let contentUrl: String?
+    
+    public let importDate: Date
+    public let trendingDate: Date
 
-    }
-
-    private let json: JSON
-//
-//    let id: String
-//    let slug: String
-//    let url: Url
-//    let user: User?
-//    let source: Source
-//    let rating: Giphy.Rating
-//    let caption: String?
-//    let contentUrl: String?
-//
-//    let importDate: Date
-//    let trendingDate: Date
-//
-//    let images: Images
+    let images: Images
     
     init?(json: JSON) {
-        self.json = json
+        guard let id = json["id"] as? String,
+            let slug = json["slug"] as? String,
+            let url = json["url"] as? String,
+            let bitlyUrl = json["bitly_url"] as? String,
+            let bitlyGifUrl = json["bitly_gif_url"] as? String,
+            let embedUrl = json["embed_url"] as? String,
+            let username = json["username"] as? String?,
+            let sourceUrl = json["source"] as? String,
+            let sourceTld = json["source_tld"] as? String,
+            let sourcePostUrl = json["source_post_url"] as? String,
+            let caption = json["caption"] as? String?,
+            let contentUrl = json["content_url"] as? String?,
+            let ratingString = json["rating"] as? String,
+            let rating = Giphy.Rating(rawValue: ratingString),
+            let importDateString = json["import_datetime"] as? String,
+            let importDate = Giphy.dateFormatter.date(from: importDateString),
+            let trendingDateString = json["trending_datetime"] as? String,
+            let trendingDate = Giphy.dateFormatter.date(from: trendingDateString),
+            let imagesJSON = json["images"] as? JSON,
+            let images = Images(json: imagesJSON)
+        else { return nil }
+        
+        if let user = json["user"] as? JSON {
+            let username = user["username"] as? String
+            let displayName = user["display_name"] as? String
+            let profileUrl = user["profile_url"] as? String
+            let bannerUrl = user["banner_url"] as? String
+            let avatarUrl = user["avatar_url"] as? String
+            
+            self.user = User(username: username, displayName: displayName, profileUrl: profileUrl, bannerUrl: bannerUrl, avatarUrl: avatarUrl)
+        } else {
+            self.user = User(username: username)
+        }
+        
+        self.id = id
+        self.slug = slug
+        self.url = Url(base: url, bitly: bitlyUrl, bitlyGif: bitlyGifUrl, embed: embedUrl)
+        self.source = Source(url: sourceUrl, topLevelDomain: sourceTld, postUrl: sourcePostUrl)
+        self.rating = rating
+        self.caption = caption
+        self.contentUrl = contentUrl
+        self.importDate = importDate
+        self.trendingDate = trendingDate
+        self.images = images
     }
     
 }
-
-/*
-user: {
-                avatar_url: "https://media3.giphy.com/avatars/mrdiv.gif",
-                banner_url: "",
-                profile_url: "https://giphy.com/mrdiv/",
-                username: "mrdiv",
-                display_name: "mr. div"
-              },
-*/
-
-/*
-type: "gif",
-            id: "FiGiRei2ICzzG",
-            slug: "funny-cat-FiGiRei2ICzzG",
-
-            url: "http://giphy.com/gifs/funny-cat-FiGiRei2ICzzG",
-            bitly_gif_url: "http://gph.is/1fIdLOl",
-            bitly_url: "http://gph.is/1fIdLOl",
-            embed_url: "http://giphy.com/embed/FiGiRei2ICzzG",
-
-            username: "",
-            source: "http://tumblr.com",
-            rating: "g",
-            caption: "",
-            content_url: "",
-
-            source_tld: "tumblr.com",
-            source_post_url: "http://tumblr.com",
-            import_datetime: "2014-01-18 09:14:20",
-            trending_datetime: "1970-01-01 00:00:00",
-*/
