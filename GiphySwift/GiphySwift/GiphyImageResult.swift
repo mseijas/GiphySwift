@@ -8,7 +8,11 @@
 
 import Foundation
 
-public struct GiphyImageResult {
+protocol GiphyModelRequestable {
+    init?(json: JSON)
+}
+
+public struct GiphyImageResult: GiphyModelRequestable {
 
 	public struct Url {
     	public let base: String
