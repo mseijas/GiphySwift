@@ -8,6 +8,7 @@
 
 import Foundation
 
+typealias GiphyResponseProperties = (responseType: Any.Type, expectsPagination: Bool)
 
 public struct GiphyRequest { }
 
@@ -19,8 +20,12 @@ extension GiphyRequest {
         case withIds(_: [String])
         case trending
         
+        var properties: GiphyResponseProperties {
+            return (responseType: [JSON].self, expectsPagination: true)
+        }
+        
         static private var urlPrefix = "/gifs"
-        internal var urlComponents: String {
+        var urlComponents: String {
             let url = Gif.urlPrefix
             
             switch self {
@@ -30,41 +35,54 @@ extension GiphyRequest {
             }
         }
         
+        
         public enum Search: GiphyRequestable {
-            case phrase(_: String)
+            case search(_: String)
+            
+            var properties: GiphyResponseProperties {
+                return (responseType: [JSON].self, expectsPagination: true)
+            }
             
             static private var urlPrefix = Gif.urlPrefix
-            internal var urlComponents: String {
+            var urlComponents: String {
                 let url = Search.urlPrefix
                 
                 switch self {
-                case .phrase(let phrase): return url + "/search?q=\(phrase)"
+                case .search(let phrase): return url + "/search?q=\(phrase)"
                 }
             }
         }
         
         public enum Translate: GiphyRequestable {
-            case phrase(_: String)
+            case translate(_: String)
+            
+            var properties: GiphyResponseProperties {
+                return (responseType: JSON.self, expectsPagination: false)
+            }
             
             static private var urlPrefix = Gif.urlPrefix + "/translate"
-            internal var urlComponents: String {
+            var urlComponents: String {
                 let url = Translate.urlPrefix
                 
                 switch self {
-                case .phrase(let phrase): return url + "/s?q=\(phrase)"
+                case .translate(let phrase): return url + "?s=\(phrase)"
                 }
             }
         }
         
         public enum Random: GiphyRequestable {
-            case tag(_: String)
+            case random(tag: String)
+            
+            var properties: GiphyResponseProperties {
+                return (responseType: [JSON].self, expectsPagination: true)
+            }
             
             static private var urlPrefix = Gif.urlPrefix + "/random"
-            internal var urlComponents: String {
+            var urlComponents: String {
                 let url = Random.urlPrefix
                 
                 switch self {
-                case .tag(let phrase): return url + "/tag?q=\(phrase)"
+                case .random(let tag): return url + "/tag?q=\(tag)"
                 }
             }
         }
@@ -79,8 +97,12 @@ extension GiphyRequest {
         
         case trending
         
+        var properties: GiphyResponseProperties {
+            return (responseType: [JSON].self, expectsPagination: true)
+        }
+        
         static private var urlPrefix = "/stickers"
-        internal var urlComponents: String {
+        var urlComponents: String {
             let url = Sticker.urlPrefix
             
             switch self {
@@ -91,8 +113,12 @@ extension GiphyRequest {
         public enum Search: GiphyRequestable {
             case phrase(_: String)
             
+            var properties: GiphyResponseProperties {
+                return (responseType: [JSON].self, expectsPagination: true)
+            }
+            
             static private var urlPrefix = Sticker.urlPrefix
-            internal var urlComponents: String {
+            var urlComponents: String {
                 let url = Search.urlPrefix
                 
                 switch self {
@@ -104,12 +130,16 @@ extension GiphyRequest {
         public enum Translate: GiphyRequestable {
             case phrase(_: String)
             
+            var properties: GiphyResponseProperties {
+                return (responseType: JSON.self, expectsPagination: false)
+            }
+            
             static private var urlPrefix = Sticker.urlPrefix + "/translate"
-            internal var urlComponents: String {
+            var urlComponents: String {
                 let url = Translate.urlPrefix
                 
                 switch self {
-                case .phrase(let phrase): return url + "/s?q=\(phrase)"
+                case .phrase(let phrase): return url + "?s=\(phrase)"
                 }
             }
         }
@@ -117,8 +147,12 @@ extension GiphyRequest {
         public enum Random: GiphyRequestable {
             case tag(_: String)
             
+            var properties: GiphyResponseProperties {
+                return (responseType: [JSON].self, expectsPagination: true)
+            }
+            
             static private var urlPrefix = Sticker.urlPrefix + "/random"
-            internal var urlComponents: String {
+            var urlComponents: String {
                 let url = Random.urlPrefix
                 
                 switch self {
@@ -135,11 +169,17 @@ extension GiphyRequest {
 internal protocol GiphyRequestable {
     var urlComponents: String { get }
     var url: URL { get }
+    var properties: GiphyResponseProperties { get }
 }
 
 extension GiphyRequestable {
     var url: URL {
-        let url = Configuration.baseUrl + urlComponents + "?api_key=\(Giphy.apiKey)"
+        var url = Configuration.baseUrl + urlComponents
+        if urlComponents.range(of: "?q=") != nil || urlComponents.range(of: "?s=") != nil {
+            url += "&api_key=\(Giphy.apiKey)"
+        } else {
+            url += "?api_key=\(Giphy.apiKey)"
+        }
         return URL(string: url)!
     }
 }

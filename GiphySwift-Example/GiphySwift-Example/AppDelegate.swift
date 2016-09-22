@@ -18,18 +18,58 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Giphy.configure(with: .public)
         
-        Giphy.request(.trending) { (requestResult) in
+//        Giphy.request(.trending) { (requestResult) in
+//            switch requestResult {
+//            case .success(let result, let properties):
+//                print("** RESULT **")
+//                print(result)
+//                //if let first = result.first {
+//                    let first = result.first
+//                    let importDate = first?.importDate
+//                    print("** IMPORT DATE **")
+//                
+//                    print (importDate?.description(with: Locale.current))
+//                    print("***")
+//                //}
+//                
+//                print("** PROPERTIES **")
+//                print(properties)
+//            case .error(let error): print("^ ERROR: \(error)")
+//            }
+//        }
+        
+//        Giphy.request(.search("britney")) { (requestResult) in
+//                switch requestResult {
+//                case .success(let result, let properties):
+//                    print("** RESULT **")
+//                    print(result)
+//                    //if let first = result.first {
+//                    let first = result.first
+//                    let importDate = first?.importDate
+//                    print("** IMPORT DATE **")
+//                    
+//                    print (importDate?.description(with: Locale.current))
+//                    print("***")
+//                    //}
+//                    
+//                    print("** PROPERTIES **")
+//                    print(properties)
+//                case .error(let error): print("^ ERROR: \(error)")
+//                }
+//            }
+        
+        Giphy.request(.translate("hello")) { (requestResult) in
             switch requestResult {
             case .success(let result, let properties):
                 print("** RESULT **")
                 print(result)
                 //if let first = result.first {
-                    let first = result.first
-                    let importDate = first?.importDate
-                    print("** IMPORT DATE **")
+                let first = result.first
+                let importDate = first?.importDate
+                print("** IMPORT DATE **")
                 
-                    print (importDate?.description(with: Locale.current))
-                    print("***")
+                print (importDate?.description(with: Locale.current))
+                print("***")
                 //}
                 
                 print("** PROPERTIES **")

@@ -50,14 +50,25 @@ public struct Giphy {
     }
     
     static public func request(_ endpoint: GiphyRequest.Gif, limit: Int = 10, offset: Int = 0, rating: Rating? = nil, completionHandler: @escaping (GiphyRequestResult) -> Void) {
-        
+        dataTask(with: endpoint, completionHandler: completionHandler)
+    }
+    
+    static public func request(_ endpoint: GiphyRequest.Gif.Search, limit: Int = 10, offset: Int = 0, rating: Rating? = nil, completionHandler: @escaping (GiphyRequestResult) -> Void) {
+        dataTask(with: endpoint, completionHandler: completionHandler)
+    }
+    
+    static public func request(_ endpoint: GiphyRequest.Gif.Translate, limit: Int = 10, offset: Int = 0, rating: Rating? = nil, completionHandler: @escaping (GiphyRequestResult) -> Void) {
+        dataTask(with: endpoint, completionHandler: completionHandler)
+    }
+    
+    static private func request(_ endpoint: GiphyRequestable, limit: Int = 10, offset: Int = 0, rating: Rating? = nil, completionHandler: @escaping (GiphyRequestResult) -> Void) {
+        dataTask(with: endpoint, completionHandler: completionHandler)
+    }
+    
+    static private func dataTask(with endpoint: GiphyRequestable, completionHandler: @escaping (GiphyRequestResult) -> Void) {
         let url = endpoint.url
         let urlRequest = URLRequest(url: url)
         
-        dataTask(with: urlRequest, completionHandler: completionHandler)
-    }
-    
-    static private func dataTask(with urlRequest: URLRequest, completionHandler: @escaping (GiphyRequestResult) -> Void) {
         URLSession.shared.dataTask(with: urlRequest){ (data, response, error) in
             
             // print("data: \(data)")
@@ -88,20 +99,49 @@ public struct Giphy {
                     return
                 }
                 
-                guard let data = json["data"] as? [JSON] else {
+                var giphyResults = [GiphyImageResult]()
+                if endpoint.properties.responseType == [JSON].self {
+                    guard let data = json["data"] as? [JSON] else {
+                        let error = NSError(domain: "com.GiphySwift", code: 900, userInfo: ["Reason":"Could not parse data property from JSON response"])
+                        completionHandler(GiphyRequestResult.error(error))
+                        return
+                    }
+                    
+                    giphyResults = data.flatMap(GiphyImageResult.init)
+                }
+                else if endpoint.properties.responseType == JSON.self {
+                    guard let data = json["data"] as? JSON else {
+                        let error = NSError(domain: "com.GiphySwift", code: 900, userInfo: ["Reason":"Could not parse data property from JSON response"])
+                        completionHandler(GiphyRequestResult.error(error))
+                        return
+                    }
+                    
+                    guard let result = GiphyImageResult(json: data) else {
+                        let error = NSError(domain: "com.GiphySwift", code: 900, userInfo: ["Reason":"Could not parse data property from JSON response"])
+                        completionHandler(GiphyRequestResult.error(error))
+                        return
+                    }
+                    
+                    giphyResults = [result]
+                }
+                else {
                     let error = NSError(domain: "com.GiphySwift", code: 900, userInfo: ["Reason":"Could not parse data property from JSON response"])
                     completionHandler(GiphyRequestResult.error(error))
                     return
                 }
                 
-                guard let pagination = json["pagination"] as? JSON else {
-                    let error = NSError(domain: "com.GiphySwift", code: 900, userInfo: ["Reason":"Could not parse pagination property from JSON response"])
-                    completionHandler(GiphyRequestResult.error(error))
-                    return
+                
+                var giphyResultProperties: GiphyResultProperties? = nil
+                if endpoint.properties.expectsPagination == true {
+                    guard let pagination = json["pagination"] as? JSON else {
+                        let error = NSError(domain: "com.GiphySwift", code: 900, userInfo: ["Reason":"Could not parse pagination property from JSON response"])
+                        completionHandler(GiphyRequestResult.error(error))
+                        return
+                    }
+                    
+                    giphyResultProperties = GiphyResultProperties(json: pagination)
                 }
                 
-                let giphyResults = data.flatMap(GiphyImageResult.init)
-                let giphyResultProperties = GiphyResultProperties(json: pagination)
                 completionHandler(GiphyRequestResult.success(result: giphyResults, properties: giphyResultProperties))
             }
             
