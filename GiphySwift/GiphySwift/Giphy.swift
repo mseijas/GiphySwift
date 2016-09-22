@@ -61,6 +61,10 @@ public struct Giphy {
         dataTask(with: endpoint, completionHandler: completionHandler)
     }
     
+    static public func request(_ endpoint: GiphyRequest.Gif.Random, limit: Int = 10, offset: Int = 0, rating: Rating? = nil, completionHandler: @escaping (GiphyRequestResult) -> Void) {
+        dataTask(with: endpoint, completionHandler: completionHandler)
+    }
+    
     static private func request(_ endpoint: GiphyRequestable, limit: Int = 10, offset: Int = 0, rating: Rating? = nil, completionHandler: @escaping (GiphyRequestResult) -> Void) {
         dataTask(with: endpoint, completionHandler: completionHandler)
     }
