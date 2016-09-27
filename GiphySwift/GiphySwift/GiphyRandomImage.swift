@@ -8,6 +8,12 @@
 
 import Foundation
 
-public struct GiphyRandomImageResult {
+public struct GiphyRandomImageResult: GiphyModelRequestable {
+    
+    let json: JSON
+    
+    init?(json: JSON) {
+        self.json = json
+    }
     
 }

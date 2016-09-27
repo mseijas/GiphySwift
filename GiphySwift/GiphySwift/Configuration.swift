@@ -10,11 +10,6 @@ import Foundation
 
 struct Configuration {
     
-//    static private var plist: [String: AnyObject] {
-//        let plistPath = Bundle.main.path(forResource: "Configuration", ofType: "plist")!
-//        return NSDictionary(contentsOfFile: plistPath) as! [String: AnyObject]
-//    }
-    
     static var host: String {
         return "api.giphy.com"
     }

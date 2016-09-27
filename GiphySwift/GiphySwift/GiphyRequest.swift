@@ -8,8 +8,6 @@
 
 import Foundation
 
-typealias GiphyResponseProperties = (responseType: Any.Type, expectsPagination: Bool)
-
 public struct GiphyRequest { }
 
 // MARK: - GiphyRequset: Gif
@@ -64,6 +62,10 @@ extension GiphyRequest {
         
         public enum Random: GiphyRequestable {
             case random(tag: String)
+            
+            var properties: GiphyResponseProperties {
+                return (responseType: JSON.self, expectsPagination: false)
+            }
             
             static private var urlPrefix = Gif.urlPrefix
             var urlComponents: String {

@@ -15,7 +15,6 @@
 		606EA4351D878CC300F7FEE0 /* GiphySwift.h in Headers */ = {isa = PBXBuildFile; fileRef = 606EA4271D878CC300F7FEE0 /* GiphySwift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		606EA4411D878E5000F7FEE0 /* Giphy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606EA4401D878E5000F7FEE0 /* Giphy.swift */; };
 		606FDF1F1D8874FB00FE8EEB /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606FDF1E1D8874FB00FE8EEB /* Configuration.swift */; };
-		60B12ED01D897DEB000836B2 /* Configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = 60B12ECF1D897DEB000836B2 /* Configuration.plist */; };
 		60B3944E1D90D08D00B51B36 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B3944D1D90D08D00B51B36 /* Protocols.swift */; };
 		60B394501D90D0FB00B51B36 /* Giphy+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B3944F1D90D0FB00B51B36 /* Giphy+Image.swift */; };
 		60B394531D940ACD00B51B36 /* GiphyRandomImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B394521D940ACD00B51B36 /* GiphyRandomImage.swift */; };
@@ -43,7 +42,6 @@
 		606EA4341D878CC300F7FEE0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		606EA4401D878E5000F7FEE0 /* Giphy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Giphy.swift; sourceTree = "<group>"; };
 		606FDF1E1D8874FB00FE8EEB /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
-		60B12ECF1D897DEB000836B2 /* Configuration.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Configuration.plist; sourceTree = "<group>"; };
 		60B3944D1D90D08D00B51B36 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		60B3944F1D90D0FB00B51B36 /* Giphy+Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Giphy+Image.swift"; sourceTree = "<group>"; };
 		60B394521D940ACD00B51B36 /* GiphyRandomImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiphyRandomImage.swift; sourceTree = "<group>"; };
@@ -89,12 +87,10 @@
 		606EA4261D878CC300F7FEE0 /* GiphySwift */ = {
 			isa = PBXGroup;
 			children = (
-				60B394541D940B7A00B51B36 /* Model */,
 				606EA4401D878E5000F7FEE0 /* Giphy.swift */,
 				6043C4611D88612C003D8084 /* GiphyRequest.swift */,
-				60B3944D1D90D08D00B51B36 /* Protocols.swift */,
 				606FDF1E1D8874FB00FE8EEB /* Configuration.swift */,
-				60B12ECF1D897DEB000836B2 /* Configuration.plist */,
+				60B394541D940B7A00B51B36 /* Model */,
 				606EA4421D878E5B00F7FEE0 /* Supporting Files */,
 			);
 			path = GiphySwift;
@@ -125,6 +121,7 @@
 				6043C4631D88702D003D8084 /* GiphyImageResult.swift */,
 				60B394521D940ACD00B51B36 /* GiphyRandomImage.swift */,
 				6043205D1D89978000FD9940 /* GiphyResultProperties.swift */,
+				60B3944D1D90D08D00B51B36 /* Protocols.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -225,7 +222,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				60B12ED01D897DEB000836B2 /* Configuration.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
