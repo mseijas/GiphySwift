@@ -21,4 +21,10 @@ public struct GiphyResultProperties {
         self.offset = offset
         self.totalCount = json["total_count"] as? Int
     }
+    
+    init?(with object: AnyObject?) {
+        guard let pagination = object as? JSON else { return nil }
+        self.init(json: pagination)
+    }
+    
 }

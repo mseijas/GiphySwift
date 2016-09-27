@@ -46,10 +46,6 @@ extension GiphyRequest {
         public enum Translate: GiphyRequestable {
             case translate(_: String)
             
-            var properties: GiphyResponseProperties {
-                return (responseType: JSON.self, expectsPagination: false)
-            }
-            
             static private var urlPrefix = Gif.urlPrefix + "/translate"
             var urlComponents: String {
                 let url = Translate.urlPrefix
@@ -62,10 +58,6 @@ extension GiphyRequest {
         
         public enum Random: GiphyRequestable {
             case random(tag: String)
-            
-            var properties: GiphyResponseProperties {
-                return (responseType: JSON.self, expectsPagination: false)
-            }
             
             static private var urlPrefix = Gif.urlPrefix
             var urlComponents: String {
@@ -143,14 +135,9 @@ extension GiphyRequest {
 internal protocol GiphyRequestable {
     var urlComponents: String { get }
     var url: URL { get }
-    var properties: GiphyResponseProperties { get }
 }
 
 extension GiphyRequestable {
-    var properties: GiphyResponseProperties {
-        return (responseType: [JSON].self, expectsPagination: true)
-    }
-    
     var url: URL {
         var url = Configuration.baseUrl + urlComponents
         if urlComponents.range(of: "?q=") != nil || urlComponents.range(of: "?s=") != nil || urlComponents.range(of: "?ids=") != nil || urlComponents.range(of: "?tag=") != nil {

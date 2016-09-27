@@ -12,7 +12,6 @@ public typealias GiphyRequestResult = GiphyResult<[GiphyImageResult]>
 public typealias GiphyRandomRequestResult = GiphyResult<[GiphyRandomImageResult]>
 public typealias KByte = Int
 typealias JSON = [String:AnyObject]
-typealias GiphyResponseProperties = (responseType: Any.Type, expectsPagination: Bool)
 
 public enum GiphyResult<T> {
     case success(result: T, properties: GiphyResultProperties?)
@@ -67,7 +66,7 @@ public struct Giphy {
         dataTask(with: endpoint, completionHandler: completionHandler)
     }
     
-
+    
     static private func dataTask<T: Collection>(with endpoint: GiphyRequestable, completionHandler: @escaping (GiphyResult<T>) -> Void) where T.Iterator.Element: GiphyModelRequestable {
         
         let url = endpoint.url
@@ -94,71 +93,42 @@ public struct Giphy {
                 }
                 
                 guard status == 200 else {
-                    let error = NSError(domain: "com.GiphySwift", code: status, userInfo: ["Reason":msg])
+                    let error = NSError(domain: "com.GiphySwift", code: status, userInfo: ["Reason":msg.capitalized])
                     completionHandler(GiphyResult<T>.error(error))
                     return
                 }
                 
-                var giphyResults: T
-                if endpoint.properties.responseType == [JSON].self {
-                    guard let data = json["data"] as? [JSON] else {
-                        let error = NSError(domain: "com.GiphySwift", code: 900, userInfo: ["Reason":"Could not parse data property from JSON response"])
-                        completionHandler(GiphyResult<T>.error(error))
-                        return
-                    }
-                    
-                     guard let imageResults = data.flatMap(T.Iterator.Element.init) as? T else {
-//                    guard let imageResults = data.flatMap(CollectionType.init) as? T else {
-                        let error = NSError(domain: "com.GiphySwift", code: 900, userInfo: ["Reason":"Could not downcast model to GiphyResult of type \(T.self)"])
-                        completionHandler(GiphyResult<T>.error(error))
-                        return
-                    }
-                    
-                    giphyResults = imageResults
-                }
-                else if endpoint.properties.responseType == JSON.self {
-                    guard let data = json["data"] as? JSON else {
-                        let error = NSError(domain: "com.GiphySwift", code: 900, userInfo: ["Reason":"Could not parse data property from JSON response"])
-                        completionHandler(GiphyResult<T>.error(error))
-                        return
-                    }
-                    
-                    guard let result = T.Iterator.Element(json: data) else {
-                        let error = NSError(domain: "com.GiphySwift", code: 900, userInfo: ["Reason":"Could not parse data property from JSON response"])
-                        completionHandler(GiphyResult<T>.error(error))
-                        return
-                    }
-                    
-                    guard let imageResult = [result] as? T else {
-                        let error = NSError(domain: "com.GiphySwift", code: 900, userInfo: ["Reason":"Could not downcast model to GiphyResult of type \(T.self)"])
-                        completionHandler(GiphyResult<T>.error(error))
-                        return
-                    }
-                    
-                    giphyResults = imageResult
-                }
-                else {
+                guard let data = jsonArray(from: json["data"]) else {
                     let error = NSError(domain: "com.GiphySwift", code: 900, userInfo: ["Reason":"Could not parse data property from JSON response"])
                     completionHandler(GiphyResult<T>.error(error))
                     return
                 }
                 
-                
-                var giphyResultProperties: GiphyResultProperties? = nil
-                if endpoint.properties.expectsPagination == true {
-                    guard let pagination = json["pagination"] as? JSON else {
-                        let error = NSError(domain: "com.GiphySwift", code: 900, userInfo: ["Reason":"Could not parse pagination property from JSON response"])
-                        completionHandler(GiphyResult<T>.error(error))
-                        return
-                    }
-                    
-                    giphyResultProperties = GiphyResultProperties(json: pagination)
+                guard let imageResults = data.flatMap(T.Iterator.Element.init) as? T else {
+                    let error = NSError(domain: "com.GiphySwift", code: 900, userInfo: ["Reason":"Could not downcast model to GiphyResult of type \(T.self)"])
+                    completionHandler(GiphyResult<T>.error(error))
+                    return
                 }
                 
-                completionHandler(GiphyResult<T>.success(result: giphyResults, properties: giphyResultProperties))
+                let giphyResultProperties = GiphyResultProperties(with: json["pagination"])
+                
+                completionHandler(GiphyResult<T>.success(result: imageResults, properties: giphyResultProperties))
             }
             
         }.resume()
+        
+    }
+    
+    static private func jsonArray(from json: AnyObject?) -> [JSON]? {
+        var jsonArray: [JSON]?
+        
+        if let result = json as? JSON {
+            jsonArray = [result]
+        } else {
+            jsonArray = json as? [JSON]
+        }
+        
+        return jsonArray
     }
     
 }
