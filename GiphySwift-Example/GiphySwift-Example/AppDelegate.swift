@@ -18,209 +18,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Giphy.configure(with: .public)
         
-//        Giphy.request(.trending) { (requestResult) in
-//            switch requestResult {
-//            case .success(let result, let properties):
-//                print("** RESULT **")
-//                print(result)
-//                //if let first = result.first {
-//                    let first = result.first
-//                    let importDate = first?.importDate
-//                    print("** IMPORT DATE **")
-//                
-//                    print (importDate?.description(with: Locale.current))
-//                    print("***")
-//                //}
-//                
-//                print("** PROPERTIES **")
-//                print(properties)
-//            case .error(let error): print("^ ERROR: \(error)")
-//            }
-//        }
-        
-//        Giphy.request(.search("britney spears")) { (requestResult) in
-//                switch requestResult {
-//                case .success(let result, let properties):
-//                    print("** RESULT **")
-//                    print(result)
-//                    //if let first = result.first {
-//                    let first = result.first
-//                    let importDate = first?.importDate
-//                    print("** IMPORT DATE **")
-//                    
-//                    print (importDate?.description(with: Locale.current))
-//                    print("***")
-//                    //}
-//                    
-//                    print("** PROPERTIES **")
-//                    print(properties)
-//                case .error(let error): print("^ ERROR: \(error)")
-//                }
-//            }
-        
-//        Giphy.request(.translate("hello")) { (requestResult) in
-//            switch requestResult {
-//            case .success(let result, let properties):
-//                print("** RESULT **")
-//                print(result)
-//                //if let first = result.first {
-//                let first = result.first
-//                let importDate = first?.importDate
-//                print("** IMPORT DATE **")
-//                
-//                print (importDate?.description(with: Locale.current))
-//                print("***")
-//                //}
-//                
-//                print("** PROPERTIES **")
-//                print(properties)
-//            case .error(let error): print("^ ERROR: \(error)")
-//            }
-//        }
-        
-//        Giphy.request(.withId("feqkVgjJpYtjy")) { (requestResult) in
-//            switch requestResult {
-//            case .success(let result, let properties):
-//                print("** RESULT **")
-//                print(result)
-//                //if let first = result.first {
-//                let first = result.first
-//                let importDate = first?.importDate
-//                print("** IMPORT DATE **")
-//                
-//                print (importDate?.description(with: Locale.current))
-//                print("***")
-//                //}
-//                
-//                print("** PROPERTIES **")
-//                print(properties)
-//            case .error(let error): print("^ ERROR: \(error)")
-//            }
-//        }
-        
-//        Giphy.request(.withIds(["feqkVgjJpYtjy", "7rzbxdu0ZEXLy"])) { (requestResult) in
-//            switch requestResult {
-//            case .success(let result, let properties):
-//                print("** RESULT **")
-//                print(result)
-//                //if let first = result.first {
-//                let first = result.first
-//                let importDate = first?.importDate
-//                print("** IMPORT DATE **")
-//                
-//                print (importDate?.description(with: Locale.current))
-//                print("***")
-//                //}
-//                
-//                print("** PROPERTIES **")
-//                print(properties)
-//            case .error(let error): print("^ ERROR: \(error)")
-//            }
-//        }
-        
-        Giphy.Gif.request(.random(tag: "britney")) { (requestResult) in
+//        Giphy.Gif.request(.trending) {
+//        Giphy.Gif.request(.translate("hello")) {
+//        Giphy.Gif.request(.withId("feqkVgjJpYtjy")) {
+//        Giphy.Gif.request(.withIds(["feqkVgjJpYtjy", "7rzbxdu0ZEXLy"])) {
+//        Giphy.Gif.request(.random(tag: "britney")) {
+//        Giphy.Sticker.request(.trending) {
+//        Giphy.Sticker.request(.translate("hello")) {
+//        Giphy.Sticker.request(.search("britney")) {
+        Giphy.Sticker.request(.random(tag: "hello")) {
+            (requestResult) in
             switch requestResult {
             case .success(let result, let properties):
                 print("** RESULT **")
                 print(result)
-                //if let first = result.first {
-                //let first = result.first
-                //let importDate = first?.importDate
-                //print("** IMPORT DATE **")
-                
-                //print (importDate?.description(with: Locale.current))
-                //print("***")
-                //}
                 
                 print("** PROPERTIES **")
                 print(properties)
-            case .error(let error): print("^ ERROR: \(error)")
+                case .error(let error): print("^ ERROR: \(error)")
             }
         }
-        
-//        Giphy.Sticker.request(GiphyRequest.Sticker.Translate, completionHandler: (GiphyRequestResult) -> Void) { (requestResult) in
-//            switch requestResult {
-//            case .success(let result, let properties):
-//                print("** RESULT **")
-//                print(result)
-//                //if let first = result.first {
-//                //let first = result.first
-//                //let importDate = first?.importDate
-//                //print("** IMPORT DATE **")
-//                
-//                //print (importDate?.description(with: Locale.current))
-//                //print("***")
-//                //}
-//                
-//                print("** PROPERTIES **")
-//                print(properties)
-//            case .error(let error): print("^ ERROR: \(error)")
-//            }
-//
-//        }
-        
-//        Giphy.Sticker.request(.translate("hello")) { (requestResult) in
-//            switch requestResult {
-//            case .success(let result, let properties):
-//                print("** RESULT **")
-//                print(result)
-//                //if let first = result.first {
-//                //let first = result.first
-//                //let importDate = first?.importDate
-//                //print("** IMPORT DATE **")
-//                
-//                //print (importDate?.description(with: Locale.current))
-//                //print("***")
-//                //}
-//                
-//                print("** PROPERTIES **")
-//                print(properties)
-//            case .error(let error): print("^ ERROR: \(error)")
-//            }
-//
-//        }
-        
-//        Giphy.Sticker.request(.search("britney spears")) { (requestResult) in
-//            switch requestResult {
-//            case .success(let result, let properties):
-//                print("** RESULT **")
-//                print(result)
-//                //if let first = result.first {
-//                //let first = result.first
-//                //let importDate = first?.importDate
-//                //print("** IMPORT DATE **")
-//                
-//                //print (importDate?.description(with: Locale.current))
-//                //print("***")
-//                //}
-//                
-//                print("** PROPERTIES **")
-//                print(properties)
-//            case .error(let error): print("^ ERROR: \(error)")
-//            }
-//
-//        }
-        
-//        Giphy.Sticker.request(.random(tag: "hello")) { (requestResult) in
-//            switch requestResult {
-//            case .success(let result, let properties):
-//                print("** RESULT **")
-//                print(result)
-//                //if let first = result.first {
-//                //let first = result.first
-//                //let importDate = first?.importDate
-//                //print("** IMPORT DATE **")
-//                
-//                //print (importDate?.description(with: Locale.current))
-//                //print("***")
-//                //}
-//                
-//                print("** PROPERTIES **")
-//                print(properties)
-//            case .error(let error): print("^ ERROR: \(error)")
-//            }
-//            
-//        }
         
         return true
     }

@@ -22,7 +22,7 @@ public enum GiphyResult<T> {
 public struct Giphy {
     
     public enum Rating: String {
-        case y, g, pg, pg13, r
+        case y, g, pg, pg13 = "pg-13", r
     }
     
     public enum ApiKey {
@@ -81,44 +81,93 @@ public struct Giphy {
     
     public struct Gif {
         static public func request(_ endpoint: GiphyRequest.Gif, limit: Int = 10, offset: Int = 0, rating: Rating? = nil, completionHandler: @escaping (GiphyRequestResult) -> Void) {
-            Giphy.dataTask(with: endpoint, completionHandler: completionHandler)
+            
+            var options = [String:String]()
+            options["limit"] = String(describing: limit)
+            options["offset"] = String(describing: offset)
+            options["rating"] = rating?.rawValue
+            
+            Giphy.dataTask(with: endpoint, options: options, completionHandler: completionHandler)
         }
         
-        static public func request(_ endpoint: GiphyRequest.Gif.Search, limit: Int = 25, offset: Int = 0, rating: Rating? = nil, completionHandler: @escaping (GiphyRequestResult) -> Void) {
-            Giphy.dataTask(with: endpoint, completionHandler: completionHandler)
+        static public func request(_ endpoint: GiphyRequest.Gif.Search, limit: Int = 25, offset: Int = 0, rating: Rating? = nil, language: Language? = nil, completionHandler: @escaping (GiphyRequestResult) -> Void) {
+            
+            var options = [String:String]()
+            options["limit"] = String(describing: limit)
+            options["offset"] = String(describing: offset)
+            options["rating"] = rating?.rawValue
+            options["lang"] = language?.rawValue
+            
+            Giphy.dataTask(with: endpoint, options: options, completionHandler: completionHandler)
         }
         
-        static public func request(_ endpoint: GiphyRequest.Gif.Translate, limit: Int = 10, offset: Int = 0, rating: Rating? = nil, completionHandler: @escaping (GiphyRequestResult) -> Void) {
-            Giphy.dataTask(with: endpoint, completionHandler: completionHandler)
+        static public func request(_ endpoint: GiphyRequest.Gif.Translate, rating: Rating? = nil, language: Language? = nil, completionHandler: @escaping (GiphyRequestResult) -> Void) {
+            
+            var options = [String:String]()
+            options["rating"] = rating?.rawValue
+            options["lang"] = language?.rawValue
+            
+            Giphy.dataTask(with: endpoint, options: options, completionHandler: completionHandler)
         }
         
-        static public func request(_ endpoint: GiphyRequest.Gif.Random, limit: Int = 10, offset: Int = 0, rating: Rating? = nil, completionHandler: @escaping (GiphyRandomRequestResult) -> Void) {
-            Giphy.dataTask(with: endpoint, completionHandler: completionHandler)
+        static public func request(_ endpoint: GiphyRequest.Gif.Random, rating: Rating? = nil, completionHandler: @escaping (GiphyRandomRequestResult) -> Void) {
+            
+            var options = [String:String]()
+            options["rating"] = rating?.rawValue
+            
+            Giphy.dataTask(with: endpoint, options: options, completionHandler: completionHandler)
         }
     }
     
     public struct Sticker {
         static public func request(_ endpoint: GiphyRequest.Sticker, limit: Int = 10, offset: Int = 0, rating: Rating? = nil, completionHandler: @escaping (GiphyRequestResult) -> Void) {
-            Giphy.dataTask(with: endpoint, completionHandler: completionHandler)
+            
+            var options = [String:String]()
+            options["limit"] = String(describing: limit)
+            options["offset"] = String(describing: offset)
+            options["rating"] = rating?.rawValue
+            
+            Giphy.dataTask(with: endpoint, options: options, completionHandler: completionHandler)
         }
         
-        static public func request(_ endpoint: GiphyRequest.Sticker.Search, limit: Int = 10, offset: Int = 0, rating: Rating? = nil, completionHandler: @escaping (GiphyRequestResult) -> Void) {
-            Giphy.dataTask(with: endpoint, completionHandler: completionHandler)
+        static public func request(_ endpoint: GiphyRequest.Sticker.Search, limit: Int = 25, offset: Int = 0, rating: Rating? = nil, language: Language? = nil, completionHandler: @escaping (GiphyRequestResult) -> Void) {
+            
+            var options = [String:String]()
+            options["limit"] = String(describing: limit)
+            options["offset"] = String(describing: offset)
+            options["rating"] = rating?.rawValue
+            options["lang"] = language?.rawValue
+            
+            Giphy.dataTask(with: endpoint, options: options, completionHandler: completionHandler)
         }
         
-        static public func request(_ endpoint: GiphyRequest.Sticker.Translate, limit: Int = 10, offset: Int = 0, rating: Rating? = nil, completionHandler: @escaping (GiphyRequestResult) -> Void) {
-            Giphy.dataTask(with: endpoint, completionHandler: completionHandler)
+        static public func request(_ endpoint: GiphyRequest.Sticker.Translate, rating: Rating? = nil, language: Language? = nil, completionHandler: @escaping (GiphyRequestResult) -> Void) {
+            
+            var options = [String:String]()
+            options["rating"] = rating?.rawValue
+            options["lang"] = language?.rawValue
+            
+            Giphy.dataTask(with: endpoint, options: options, completionHandler: completionHandler)
         }
         
-        static public func request(_ endpoint: GiphyRequest.Sticker.Random, limit: Int = 10, offset: Int = 0, rating: Rating? = nil, completionHandler: @escaping (GiphyRandomRequestResult) -> Void) {
-            Giphy.dataTask(with: endpoint, completionHandler: completionHandler)
+        static public func request(_ endpoint: GiphyRequest.Sticker.Random, rating: Rating? = nil, completionHandler: @escaping (GiphyRandomRequestResult) -> Void) {
+            
+            var options = [String:String]()
+            options["rating"] = rating?.rawValue
+            
+            Giphy.dataTask(with: endpoint, options: options, completionHandler: completionHandler)
         }
     }
     
     
-    static private func dataTask<T: Collection>(with endpoint: GiphyRequestable, completionHandler: @escaping (GiphyResult<T>) -> Void) where T.Iterator.Element: GiphyModelRequestable {
+    static private func dataTask<T: Collection>(with endpoint: GiphyRequestable, options: [String:String]? = nil, completionHandler: @escaping (GiphyResult<T>) -> Void) where T.Iterator.Element: GiphyModelRequestable {
         
-        let url = endpoint.url
+        guard let url = url(endpoint.url, with: options) else {
+            let error = NSError(domain: "com.GiphySwift", code: 907, userInfo: ["Reason":"Unable to construct request URL"])
+            completionHandler(GiphyResult<T>.error(error))
+            return
+        }
+        
         let urlRequest = URLRequest(url: url)
         print(url)
         
@@ -178,6 +227,17 @@ public struct Giphy {
         }
         
         return jsonArray
+    }
+    
+    static private func url(_ url: URL, with options: [String:String]?) -> URL? {
+        guard let options = options else { return url }
+        
+        var urlString = url.absoluteString
+        for (_, key) in options.enumerated() {
+            urlString += "&\(key.key)=\(key.value)"
+        }
+        
+        return URL(string: urlString)
     }
     
 }
