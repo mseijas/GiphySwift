@@ -10,7 +10,7 @@ import Foundation
 
 public protocol GiphyFileType {
     var url: String { get }
-    var filesize: KByte { get }
+    var filesize: KByte? { get }
 }
 
 public protocol SizeAttributable {
@@ -29,6 +29,8 @@ public protocol WebPDrawable {
     var webP: Giphy.FileType.WebP { get }
 }
 
+
+// MARK: - GiphyImages
 public protocol GiphyOriginalAnimatedImage: SizeAttributable, GifDrawable, Mp4Drawable, WebPDrawable {
     var frameCount: Int { get }
     var still: Giphy.Image.Still { get }
@@ -55,3 +57,17 @@ public protocol GiphySmallImage: SizeAttributable, GifDrawable, WebPDrawable {
 public protocol GiphyLargeImage: SizeAttributable, GifDrawable { }
 
 public protocol GiphyDownsampledImage: GifDrawable, WebPDrawable { }
+
+
+// MARK: - GiphyRandomImages
+public protocol GiphyRandomOriginalAnimatedImage: SizeAttributable, GifDrawable {
+    var frameCount: Int { get }
+}
+
+public protocol GiphyRandomDownsampledImage: GifDrawable { }
+
+public protocol GiphyRandomSmallImage: GifDrawable { }
+
+public protocol GiphyRandomFixedSizeAnimatedImage {
+    var downsampled: Giphy.Image.RandomDownsampled { get }
+}

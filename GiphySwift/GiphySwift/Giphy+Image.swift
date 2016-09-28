@@ -157,6 +157,26 @@ extension Giphy {
             }
         }
         
+        public struct RandomFixedHeight: GiphyRandomFixedSizeAnimatedImage {
+            public let downsampled: Image.RandomDownsampled
+            public let small: Image.RandomSmall
+            public let still: Image.RandomStill
+        }
+        
+        public struct RandomFixedWidth: GiphyRandomFixedSizeAnimatedImage {
+            public let downsampled: Image.RandomDownsampled
+            public let small: Image.RandomSmall
+            public let still: Image.RandomStill
+        }
+        
+        public struct RandomOriginal: GiphyRandomOriginalAnimatedImage {
+            public let size: (width: Int, height: Int)
+            public let frameCount: Int
+            
+            public let gif: FileType.Gif
+            public let mp4: FileType.Mp4
+        }
+        
         
         // MARK: - ImageType
         public struct Small: GiphySmallImage {
@@ -228,7 +248,6 @@ extension Giphy {
                 self.size = (width: width, height: height)
                 self.url = url
             }
-            
         }
         
         public struct Downsampled: GiphyDownsampledImage {
@@ -257,24 +276,40 @@ extension Giphy {
                 self.webP = FileType.WebP(url: webPUrl, filesize: webPFilesize)
             }
         }
+        
+        public struct RandomStill: GiphyStillImage {
+            public let size: (width: Int, height: Int)
+            public let url: String
+        }
+        
+        public struct RandomDownsampled: GiphyRandomDownsampledImage {
+            public let size: (width: Int, height: Int)
+            public let gif: FileType.Gif
+        }
+        
+        public struct RandomSmall: GiphyRandomSmallImage {
+            public let size: (width: Int, height: Int)
+            public let gif: FileType.Gif
+            public let still: Image.RandomStill
+        }
+        
     }
-    
     
     // MARK: - FileType
     public struct FileType {
         public struct Gif: GiphyFileType {
             public let url: String
-            public let filesize: KByte
+            public let filesize: KByte?
         }
         
         public struct WebP: GiphyFileType {
             public let url: String
-            public let filesize: KByte
+            public let filesize: KByte?
         }
         
         public struct Mp4: GiphyFileType {
             public let url: String
-            public let filesize: KByte
+            public let filesize: KByte?
         }
     }
 }

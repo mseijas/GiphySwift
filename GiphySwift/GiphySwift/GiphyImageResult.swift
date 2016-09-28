@@ -13,36 +13,6 @@ protocol GiphyModelRequestable {
 }
 
 public struct GiphyImageResult: GiphyModelRequestable {
-
-	public struct Url {
-    	public let base: String
-    	public let bitly: String
-    	public let bitlyGif: String
-    	public let embed: String
-    }
-
-    public struct User {
-    	public let username: String
-    	public let displayName: String?
-    	public let profileUrl: String?
-    	public let bannerUrl: String?
-    	public let avatarUrl: String?
-        
-        init?(username: String?, displayName: String? = nil, profileUrl: String? = nil, bannerUrl: String? = nil, avatarUrl: String? = nil) {
-            guard let username = username, username.isEmpty == false else { return nil }
-            self.username = username
-            self.displayName = displayName
-            self.profileUrl = profileUrl
-            self.bannerUrl = bannerUrl
-            self.avatarUrl = avatarUrl
-        }
-    }
-
-    public struct Source {
-    	public let url: String
-    	public let topLevelDomain: String
-    	public let postUrl: String
-    }
     
     public struct Images {
         public let fixedHeight: Giphy.Image.FixedHeight
@@ -121,9 +91,9 @@ public struct GiphyImageResult: GiphyModelRequestable {
 
     public let id: String
     public let slug: String
-    public let url: Url
-    public let source: Source
-    public let user: User?
+    public let url: Giphy.Url
+    public let source: Giphy.Source
+    public let user: Giphy.User?
     public let rating: Giphy.Rating
     public let caption: String?
     public let contentUrl: String?
@@ -163,15 +133,15 @@ public struct GiphyImageResult: GiphyModelRequestable {
             let bannerUrl = user["banner_url"] as? String
             let avatarUrl = user["avatar_url"] as? String
             
-            self.user = User(username: username, displayName: displayName, profileUrl: profileUrl, bannerUrl: bannerUrl, avatarUrl: avatarUrl)
+            self.user = Giphy.User(username: username, displayName: displayName, profileUrl: profileUrl, bannerUrl: bannerUrl, avatarUrl: avatarUrl)
         } else {
-            self.user = User(username: username)
+            self.user = Giphy.User(username: username)
         }
         
         self.id = id
         self.slug = slug
-        self.url = Url(base: url, bitly: bitlyUrl, bitlyGif: bitlyGifUrl, embed: embedUrl)
-        self.source = Source(url: sourceUrl, topLevelDomain: sourceTld, postUrl: sourcePostUrl)
+        self.url = Giphy.Url(base: url, bitly: bitlyUrl, bitlyGif: bitlyGifUrl, embed: embedUrl)
+        self.source = Giphy.Source(url: sourceUrl, topLevelDomain: sourceTld, postUrl: sourcePostUrl)
         self.rating = rating
         self.caption = caption
         self.contentUrl = contentUrl

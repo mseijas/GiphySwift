@@ -36,6 +36,35 @@ public struct Giphy {
         }
     }
     
+    public struct User {
+        public let username: String
+        public let displayName: String?
+        public let profileUrl: String?
+        public let bannerUrl: String?
+        public let avatarUrl: String?
+        
+        init?(username: String?, displayName: String? = nil, profileUrl: String? = nil, bannerUrl: String? = nil, avatarUrl: String? = nil) {
+            guard let username = username, username.isEmpty == false else { return nil }
+            self.username = username
+            self.displayName = displayName
+            self.profileUrl = profileUrl
+            self.bannerUrl = bannerUrl
+            self.avatarUrl = avatarUrl
+        }
+    }
+    
+    public struct Url {
+        public let base: String
+        public let bitly: String
+        public let bitlyGif: String
+        public let embed: String
+    }
+    
+    public struct Source {
+        public let url: String
+        public let topLevelDomain: String
+        public let postUrl: String
+    }
     
     
     static private let _dateFormatter = DateFormatter()
@@ -71,6 +100,7 @@ public struct Giphy {
         
         let url = endpoint.url
         let urlRequest = URLRequest(url: url)
+        print(url)
         
         URLSession.shared.dataTask(with: urlRequest){ (data, response, error) in
             
