@@ -79,20 +79,40 @@ public struct Giphy {
         Giphy.apiKey = apiKey.key
     }
     
-    static public func request(_ endpoint: GiphyRequest.Gif, limit: Int = 10, offset: Int = 0, rating: Rating? = nil, completionHandler: @escaping (GiphyRequestResult) -> Void) {
-        dataTask(with: endpoint, completionHandler: completionHandler)
+    public struct Gif {
+        static public func request(_ endpoint: GiphyRequest.Gif, limit: Int = 10, offset: Int = 0, rating: Rating? = nil, completionHandler: @escaping (GiphyRequestResult) -> Void) {
+            Giphy.dataTask(with: endpoint, completionHandler: completionHandler)
+        }
+        
+        static public func request(_ endpoint: GiphyRequest.Gif.Search, limit: Int = 10, offset: Int = 0, rating: Rating? = nil, completionHandler: @escaping (GiphyRequestResult) -> Void) {
+            Giphy.dataTask(with: endpoint, completionHandler: completionHandler)
+        }
+        
+        static public func request(_ endpoint: GiphyRequest.Gif.Translate, limit: Int = 10, offset: Int = 0, rating: Rating? = nil, completionHandler: @escaping (GiphyRequestResult) -> Void) {
+            Giphy.dataTask(with: endpoint, completionHandler: completionHandler)
+        }
+        
+        static public func request(_ endpoint: GiphyRequest.Gif.Random, limit: Int = 10, offset: Int = 0, rating: Rating? = nil, completionHandler: @escaping (GiphyRandomRequestResult) -> Void) {
+            Giphy.dataTask(with: endpoint, completionHandler: completionHandler)
+        }
     }
     
-    static public func request(_ endpoint: GiphyRequest.Gif.Search, limit: Int = 10, offset: Int = 0, rating: Rating? = nil, completionHandler: @escaping (GiphyRequestResult) -> Void) {
-        dataTask(with: endpoint, completionHandler: completionHandler)
-    }
-    
-    static public func request(_ endpoint: GiphyRequest.Gif.Translate, limit: Int = 10, offset: Int = 0, rating: Rating? = nil, completionHandler: @escaping (GiphyRequestResult) -> Void) {
-        dataTask(with: endpoint, completionHandler: completionHandler)
-    }
-    
-    static public func request(_ endpoint: GiphyRequest.Gif.Random, limit: Int = 10, offset: Int = 0, rating: Rating? = nil, completionHandler: @escaping (GiphyRandomRequestResult) -> Void) {
-        dataTask(with: endpoint, completionHandler: completionHandler)
+    public struct Sticker {
+        static public func request(_ endpoint: GiphyRequest.Sticker, limit: Int = 10, offset: Int = 0, rating: Rating? = nil, completionHandler: @escaping (GiphyRequestResult) -> Void) {
+            Giphy.dataTask(with: endpoint, completionHandler: completionHandler)
+        }
+        
+        static public func request(_ endpoint: GiphyRequest.Sticker.Search, limit: Int = 10, offset: Int = 0, rating: Rating? = nil, completionHandler: @escaping (GiphyRequestResult) -> Void) {
+            Giphy.dataTask(with: endpoint, completionHandler: completionHandler)
+        }
+        
+        static public func request(_ endpoint: GiphyRequest.Sticker.Translate, limit: Int = 10, offset: Int = 0, rating: Rating? = nil, completionHandler: @escaping (GiphyRequestResult) -> Void) {
+            Giphy.dataTask(with: endpoint, completionHandler: completionHandler)
+        }
+        
+        static public func request(_ endpoint: GiphyRequest.Sticker.Random, limit: Int = 10, offset: Int = 0, rating: Rating? = nil, completionHandler: @escaping (GiphyRandomRequestResult) -> Void) {
+            Giphy.dataTask(with: endpoint, completionHandler: completionHandler)
+        }
     }
     
     
@@ -146,7 +166,6 @@ public struct Giphy {
             }
             
         }.resume()
-        
     }
     
     static private func jsonArray(from json: AnyObject?) -> [JSON]? {

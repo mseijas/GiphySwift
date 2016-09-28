@@ -118,7 +118,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            }
 //        }
         
-        Giphy.request(.random(tag: "britney")) { (requestResult) in
+        Giphy.Gif.request(.random(tag: "britney")) { (requestResult) in
             switch requestResult {
             case .success(let result, let properties):
                 print("** RESULT **")
@@ -137,7 +137,90 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             case .error(let error): print("^ ERROR: \(error)")
             }
         }
-
+        
+//        Giphy.Sticker.request(GiphyRequest.Sticker.Translate, completionHandler: (GiphyRequestResult) -> Void) { (requestResult) in
+//            switch requestResult {
+//            case .success(let result, let properties):
+//                print("** RESULT **")
+//                print(result)
+//                //if let first = result.first {
+//                //let first = result.first
+//                //let importDate = first?.importDate
+//                //print("** IMPORT DATE **")
+//                
+//                //print (importDate?.description(with: Locale.current))
+//                //print("***")
+//                //}
+//                
+//                print("** PROPERTIES **")
+//                print(properties)
+//            case .error(let error): print("^ ERROR: \(error)")
+//            }
+//
+//        }
+        
+//        Giphy.Sticker.request(.translate("hello")) { (requestResult) in
+//            switch requestResult {
+//            case .success(let result, let properties):
+//                print("** RESULT **")
+//                print(result)
+//                //if let first = result.first {
+//                //let first = result.first
+//                //let importDate = first?.importDate
+//                //print("** IMPORT DATE **")
+//                
+//                //print (importDate?.description(with: Locale.current))
+//                //print("***")
+//                //}
+//                
+//                print("** PROPERTIES **")
+//                print(properties)
+//            case .error(let error): print("^ ERROR: \(error)")
+//            }
+//
+//        }
+        
+//        Giphy.Sticker.request(.search("britney spears")) { (requestResult) in
+//            switch requestResult {
+//            case .success(let result, let properties):
+//                print("** RESULT **")
+//                print(result)
+//                //if let first = result.first {
+//                //let first = result.first
+//                //let importDate = first?.importDate
+//                //print("** IMPORT DATE **")
+//                
+//                //print (importDate?.description(with: Locale.current))
+//                //print("***")
+//                //}
+//                
+//                print("** PROPERTIES **")
+//                print(properties)
+//            case .error(let error): print("^ ERROR: \(error)")
+//            }
+//
+//        }
+        
+//        Giphy.Sticker.request(.random(tag: "hello")) { (requestResult) in
+//            switch requestResult {
+//            case .success(let result, let properties):
+//                print("** RESULT **")
+//                print(result)
+//                //if let first = result.first {
+//                //let first = result.first
+//                //let importDate = first?.importDate
+//                //print("** IMPORT DATE **")
+//                
+//                //print (importDate?.description(with: Locale.current))
+//                //print("***")
+//                //}
+//                
+//                print("** PROPERTIES **")
+//                print(properties)
+//            case .error(let error): print("^ ERROR: \(error)")
+//            }
+//            
+//        }
         
         return true
     }

@@ -10,7 +10,6 @@ import Foundation
 
 public struct GiphyRequest { }
 
-// MARK: - GiphyRequset: Gif
 extension GiphyRequest {
     public enum Gif: GiphyRequestable {
         
@@ -57,14 +56,16 @@ extension GiphyRequest {
         }
         
         public enum Random: GiphyRequestable {
-            case random(tag: String)
+            case random(tag: String?)
             
             static private var urlPrefix = Gif.urlPrefix
             var urlComponents: String {
-                let url = Random.urlPrefix
+                let url = Random.urlPrefix + "/random"
                 
                 switch self {
-                case .random(let tag): return url + "/random?tag=\(tag.replacingOccurrences(of: " ", with: "+"))"
+                case .random(let tag):
+                    if let tag = tag { return url + "?tag=\(tag.replacingOccurrences(of: " ", with: "+"))" }
+                    return url
                 }
             }
         }
@@ -73,7 +74,6 @@ extension GiphyRequest {
 }
 
 
-// MARK: - GiphyRequset: Sticker
 extension GiphyRequest {
     public enum Sticker: GiphyRequestable {
         
@@ -89,40 +89,42 @@ extension GiphyRequest {
         }
         
         public enum Search: GiphyRequestable {
-            case phrase(_: String)
+            case search(_: String)
             
             static private var urlPrefix = Sticker.urlPrefix
             var urlComponents: String {
                 let url = Search.urlPrefix
                 
                 switch self {
-                case .phrase(let phrase): return url + "/search?q=\(phrase.replacingOccurrences(of: " ", with: "+"))"
+                case .search(let phrase): return url + "/search?q=\(phrase.replacingOccurrences(of: " ", with: "+"))"
                 }
             }
         }
         
         public enum Translate: GiphyRequestable {
-            case phrase(_: String)
+            case translate(_: String)
             
             static private var urlPrefix = Sticker.urlPrefix + "/translate"
             var urlComponents: String {
                 let url = Translate.urlPrefix
                 
                 switch self {
-                case .phrase(let phrase): return url + "?s=\(phrase.replacingOccurrences(of: " ", with: "+"))"
+                case .translate(let phrase): return url + "?s=\(phrase.replacingOccurrences(of: " ", with: "+"))"
                 }
             }
         }
         
         public enum Random: GiphyRequestable {
-            case tag(_: String)
+            case random(tag: String?)
             
             static private var urlPrefix = Sticker.urlPrefix + "/random"
             var urlComponents: String {
                 let url = Random.urlPrefix
                 
                 switch self {
-                case .tag(let phrase): return url + "/tag?q=\(phrase.replacingOccurrences(of: " ", with: "+"))"
+                case .random(let tag):
+                    if let tag = tag { return url + "?tag=\(tag.replacingOccurrences(of: " ", with: "+"))" }
+                    return url
                 }
             }
         }
