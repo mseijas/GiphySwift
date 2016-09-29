@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		600A11D81D897F2F0057C2D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600A11D71D897F2F0057C2D4 /* AppDelegate.swift */; };
-		600A11DA1D897F2F0057C2D4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600A11D91D897F2F0057C2D4 /* ViewController.swift */; };
 		600A11DD1D897F2F0057C2D4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 600A11DB1D897F2F0057C2D4 /* Main.storyboard */; };
 		600A11DF1D897F2F0057C2D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 600A11DE1D897F2F0057C2D4 /* Assets.xcassets */; };
 		600A11E21D897F2F0057C2D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 600A11E01D897F2F0057C2D4 /* LaunchScreen.storyboard */; };
 		600A11F21D897F460057C2D4 /* GiphySwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 600A11EF1D897F3B0057C2D4 /* GiphySwift.framework */; };
 		600A11F31D897F460057C2D4 /* GiphySwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 600A11EF1D897F3B0057C2D4 /* GiphySwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		609EDA121D9D468B00CF4B9F /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609EDA111D9D468B00CF4B9F /* TableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,12 +57,12 @@
 /* Begin PBXFileReference section */
 		600A11D41D897F2F0057C2D4 /* GiphySwift-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GiphySwift-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		600A11D71D897F2F0057C2D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		600A11D91D897F2F0057C2D4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		600A11DC1D897F2F0057C2D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		600A11DE1D897F2F0057C2D4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		600A11E11D897F2F0057C2D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		600A11E31D897F2F0057C2D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		600A11E91D897F3B0057C2D4 /* GiphySwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GiphySwift.xcodeproj; path = ../GiphySwift/GiphySwift.xcodeproj; sourceTree = "<group>"; };
+		609EDA111D9D468B00CF4B9F /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableViewController.swift; path = ../TableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,8 +97,8 @@
 		600A11D61D897F2F0057C2D4 /* GiphySwift-Example */ = {
 			isa = PBXGroup;
 			children = (
+				609EDA111D9D468B00CF4B9F /* TableViewController.swift */,
 				600A11D71D897F2F0057C2D4 /* AppDelegate.swift */,
-				600A11D91D897F2F0057C2D4 /* ViewController.swift */,
 				600A11DB1D897F2F0057C2D4 /* Main.storyboard */,
 				600A11DE1D897F2F0057C2D4 /* Assets.xcassets */,
 				600A11E01D897F2F0057C2D4 /* LaunchScreen.storyboard */,
@@ -214,8 +214,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				600A11DA1D897F2F0057C2D4 /* ViewController.swift in Sources */,
 				600A11D81D897F2F0057C2D4 /* AppDelegate.swift in Sources */,
+				609EDA121D9D468B00CF4B9F /* TableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
