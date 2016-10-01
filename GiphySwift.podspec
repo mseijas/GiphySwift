@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
                    DESC
 
   s.homepage     = "http://github.com/mseijas/GiphySwift"
-  # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
+  s.screenshots  = "http://raw.githubusercontent.com/mseijas/GiphySwift/master/GiphySwift-Example/Screenshots/Example.png", "http://raw.githubusercontent.com/mseijas/GiphySwift/master/GiphySwift-Example/Screenshots/Gifs-Search.png"
 
 
   # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
