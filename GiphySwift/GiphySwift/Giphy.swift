@@ -26,12 +26,12 @@ public struct Giphy {
     }
     
     public enum ApiKey {
-        case `public`, `private`(key: String)
+        case `publicKey`, `private`(key: String)
         
         var key: String {
             switch self {
-            case .public: return Configuration.publicApiKey
-            case .private(let key): return key
+            case .publicKey: return Configuration.publicApiKey
+            case .`private`(let key): return key
             }
         }
     }
@@ -74,7 +74,7 @@ public struct Giphy {
         return Giphy._dateFormatter
     }
     
-    private(set) static var apiKey = ApiKey.public.key
+    private(set) static var apiKey = ApiKey.publicKey.key
     
     public static func configure(with apiKey: ApiKey) {
         Giphy.apiKey = apiKey.key
