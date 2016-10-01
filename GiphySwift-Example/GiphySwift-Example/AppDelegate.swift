@@ -26,18 +26,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        Giphy.Sticker.request(.trending) {
 //        Giphy.Sticker.request(.translate("hello")) {
 //        Giphy.Sticker.request(.search("britney")) {
-        Giphy.Sticker.request(.random(tag: "hello")) {
-            (requestResult) in
-            switch requestResult {
-            case .success(let result, let properties):
-                print("** RESULT **")
-                print(result)
-                
-                print("** PROPERTIES **")
-                print(properties)
-                case .error(let error): print("^ ERROR: \(error)")
-            }
-        }
+//        Giphy.Sticker.request(.random(tag: "hello")) {
+//            (requestResult) in
+//            switch requestResult {
+//            case .success(let result, let properties):
+//                print("** RESULT **")
+//                print(result)
+//                
+//                print("** PROPERTIES **")
+//                print(properties)
+//                case .error(let error): print("^ ERROR: \(error)")
+//            }
+//        }
         
         return true
     }

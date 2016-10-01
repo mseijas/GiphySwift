@@ -14,6 +14,8 @@
 		600A11F21D897F460057C2D4 /* GiphySwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 600A11EF1D897F3B0057C2D4 /* GiphySwift.framework */; };
 		600A11F31D897F460057C2D4 /* GiphySwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 600A11EF1D897F3B0057C2D4 /* GiphySwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		609EDA121D9D468B00CF4B9F /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609EDA111D9D468B00CF4B9F /* TableViewController.swift */; };
+		609EDA141D9D504900CF4B9F /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609EDA131D9D504900CF4B9F /* CollectionViewController.swift */; };
+		DE87D6324C6BCA7DCDFD59B8 /* Pods_GiphySwift_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F8FDD194D24188497F5F0C /* Pods_GiphySwift_Example.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +57,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		18F8FDD194D24188497F5F0C /* Pods_GiphySwift_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GiphySwift_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		600A11D41D897F2F0057C2D4 /* GiphySwift-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GiphySwift-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		600A11D71D897F2F0057C2D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		600A11DC1D897F2F0057C2D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -62,7 +65,10 @@
 		600A11E11D897F2F0057C2D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		600A11E31D897F2F0057C2D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		600A11E91D897F3B0057C2D4 /* GiphySwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GiphySwift.xcodeproj; path = ../GiphySwift/GiphySwift.xcodeproj; sourceTree = "<group>"; };
-		609EDA111D9D468B00CF4B9F /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableViewController.swift; path = ../TableViewController.swift; sourceTree = "<group>"; };
+		609EDA111D9D468B00CF4B9F /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		609EDA131D9D504900CF4B9F /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
+		8166D165329F9E2FC7FF5C1E /* Pods-GiphySwift-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiphySwift-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GiphySwift-Example/Pods-GiphySwift-Example.debug.xcconfig"; sourceTree = "<group>"; };
+		DCD25C0E60AEAA88FF4117FE /* Pods-GiphySwift-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiphySwift-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-GiphySwift-Example/Pods-GiphySwift-Example.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,17 +77,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				600A11F21D897F460057C2D4 /* GiphySwift.framework in Frameworks */,
+				DE87D6324C6BCA7DCDFD59B8 /* Pods_GiphySwift_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C7CA3023DE1A232C50879E7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				18F8FDD194D24188497F5F0C /* Pods_GiphySwift_Example.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		600A11CB1D897F2F0057C2D4 = {
 			isa = PBXGroup;
 			children = (
 				600A11D61D897F2F0057C2D4 /* GiphySwift-Example */,
 				600A11D51D897F2F0057C2D4 /* Products */,
+				9E61CDFCE34588168EE38AA3 /* Pods */,
+				1C7CA3023DE1A232C50879E7 /* Frameworks */,
 				600A11E91D897F3B0057C2D4 /* GiphySwift.xcodeproj */,
 			);
 			sourceTree = "<group>";
@@ -98,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				609EDA111D9D468B00CF4B9F /* TableViewController.swift */,
+				609EDA131D9D504900CF4B9F /* CollectionViewController.swift */,
 				600A11D71D897F2F0057C2D4 /* AppDelegate.swift */,
 				600A11DB1D897F2F0057C2D4 /* Main.storyboard */,
 				600A11DE1D897F2F0057C2D4 /* Assets.xcassets */,
@@ -116,6 +134,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		9E61CDFCE34588168EE38AA3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8166D165329F9E2FC7FF5C1E /* Pods-GiphySwift-Example.debug.xcconfig */,
+				DCD25C0E60AEAA88FF4117FE /* Pods-GiphySwift-Example.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -123,10 +150,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 600A11E61D897F2F0057C2D4 /* Build configuration list for PBXNativeTarget "GiphySwift-Example" */;
 			buildPhases = (
+				160F95EA4986A1340B924CA7 /* [CP] Check Pods Manifest.lock */,
 				600A11D01D897F2F0057C2D4 /* Sources */,
 				600A11D11D897F2F0057C2D4 /* Frameworks */,
 				600A11D21D897F2F0057C2D4 /* Resources */,
 				600A11F61D897F460057C2D4 /* Embed Frameworks */,
+				02BCD0AA1F3728CADEA85918 /* [CP] Embed Pods Frameworks */,
+				81F9E192C4F700E7FEDAD8C0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -209,11 +239,60 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		02BCD0AA1F3728CADEA85918 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GiphySwift-Example/Pods-GiphySwift-Example-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		160F95EA4986A1340B924CA7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		81F9E192C4F700E7FEDAD8C0 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GiphySwift-Example/Pods-GiphySwift-Example-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		600A11D01D897F2F0057C2D4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				609EDA141D9D504900CF4B9F /* CollectionViewController.swift in Sources */,
 				600A11D81D897F2F0057C2D4 /* AppDelegate.swift in Sources */,
 				609EDA121D9D468B00CF4B9F /* TableViewController.swift in Sources */,
 			);
@@ -344,6 +423,7 @@
 		};
 		600A11E71D897F2F0057C2D4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8166D165329F9E2FC7FF5C1E /* Pods-GiphySwift-Example.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -358,6 +438,7 @@
 		};
 		600A11E81D897F2F0057C2D4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DCD25C0E60AEAA88FF4117FE /* Pods-GiphySwift-Example.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;

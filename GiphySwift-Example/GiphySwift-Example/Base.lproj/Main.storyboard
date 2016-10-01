@@ -9,7 +9,6 @@
         <!--GiphySwift-->
         <scene sceneID="3rR-Li-UG1">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lFB-bU-RvF" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController title="GiphySwift" id="0cW-kB-d2s" customClass="TableViewController" customModule="GiphySwift_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="ssE-ms-egb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -23,6 +22,9 @@
                                     <frame key="frameInset" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="q75-qa-2lz" kind="show" identifier="showImages" id="faK-Vx-7Sx"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <sections/>
@@ -33,8 +35,58 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="GiphySwift" id="e2o-aY-FAD"/>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lFB-bU-RvF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="988" y="-315.29235382308849"/>
+        </scene>
+        <!--Collection View Controller-->
+        <scene sceneID="TfP-qI-MTm">
+            <objects>
+                <collectionViewController storyboardIdentifier="CollectionViewController" id="q75-qa-2lz" customClass="CollectionViewController" customModule="GiphySwift_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="vgC-2L-rTr">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="fXE-kR-KMY">
+                            <size key="itemSize" width="100" height="100"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCell" id="BeG-HX-wep" customClass="ImageCell" customModule="GiphySwift_Example" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xQp-kz-G1k" customClass="FLAnimatedImageView">
+                                            <color key="backgroundColor" red="0.73333333329999995" green="0.76078431369999999" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </imageView>
+                                    </subviews>
+                                </view>
+                                <color key="backgroundColor" red="0.73333333329999995" green="0.76078431369999999" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="xQp-kz-G1k" firstAttribute="leading" secondItem="BeG-HX-wep" secondAttribute="leading" id="2Lq-Qg-8va"/>
+                                    <constraint firstItem="xQp-kz-G1k" firstAttribute="top" secondItem="BeG-HX-wep" secondAttribute="top" id="c6a-Cf-CrG"/>
+                                    <constraint firstAttribute="bottom" secondItem="xQp-kz-G1k" secondAttribute="bottom" id="gM3-2a-SqA"/>
+                                    <constraint firstAttribute="trailing" secondItem="xQp-kz-G1k" secondAttribute="trailing" id="pG8-JT-y6h"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="imageView" destination="xQp-kz-G1k" id="aOp-yC-DZx"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="q75-qa-2lz" id="frP-yi-Bex"/>
+                            <outlet property="delegate" destination="q75-qa-2lz" id="T0K-x8-rVA"/>
+                        </connections>
+                    </collectionView>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GlH-ky-6lW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1706" y="-315"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="6kZ-rg-A79">

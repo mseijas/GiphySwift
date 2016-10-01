@@ -1,0 +1,6 @@
+framework module Pods_GiphySwift_Example {
+  umbrella header "Pods-GiphySwift-Example-umbrella.h"
+
+  export *
+  module * { export * }
+}
