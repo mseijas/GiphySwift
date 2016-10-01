@@ -66,6 +66,7 @@ public struct Giphy {
         public let postUrl: String
     }
     
+    private static let queue = DispatchQueue(label: "com.giphyswift", qos: .userInteractive, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
     
     static private let _dateFormatter = DateFormatter()
     internal static var dateFormatter: DateFormatter {
@@ -162,59 +163,60 @@ public struct Giphy {
     
     static private func dataTask<T: Collection>(with endpoint: GiphyRequestable, options: [String:String]? = nil, completionHandler: @escaping (GiphyResult<T>) -> Void) where T.Iterator.Element: GiphyModelRequestable {
         
-        guard let url = url(endpoint.url, with: options) else {
-            let error = NSError(domain: "com.GiphySwift", code: 907, userInfo: ["Reason":"Unable to construct request URL"])
-            completionHandler(GiphyResult<T>.error(error))
-            return
-        }
-        
-        let urlRequest = URLRequest(url: url)
-        print(url)
-        
-        URLSession.shared.dataTask(with: urlRequest){ (data, response, error) in
-            
-            if let error = error {
+        queue.async {
+            guard let url = url(endpoint.url, with: options) else {
+                let error = NSError(domain: "com.GiphySwift", code: 907, userInfo: ["Reason":"Unable to construct request URL"])
                 completionHandler(GiphyResult<T>.error(error))
+                return
             }
             
-            if let data = data,
-                error == nil,
-                let jsonDict = try? JSONSerialization.jsonObject(with: data, options: []) as? JSON,
-                let json = jsonDict {
-                
-                guard let responseMeta = json["meta"] as? JSON,
-                    let status = responseMeta["status"] as? Int,
-                    let msg = responseMeta["msg"] as? String
-                else {
-                    let error = NSError(domain: "com.GiphySwift", code: 900, userInfo: ["Reason":"Could not parse JSON response"])
-                    completionHandler(GiphyResult<T>.error(error))
-                    return
-                }
-                
-                guard status == 200 else {
-                    let error = NSError(domain: "com.GiphySwift", code: status, userInfo: ["Reason":msg.capitalized])
-                    completionHandler(GiphyResult<T>.error(error))
-                    return
-                }
-                
-                guard let data = jsonArray(from: json["data"]) else {
-                    let error = NSError(domain: "com.GiphySwift", code: 900, userInfo: ["Reason":"Could not parse data property from JSON response"])
-                    completionHandler(GiphyResult<T>.error(error))
-                    return
-                }
-                
-                guard let imageResults = data.flatMap(T.Iterator.Element.init) as? T else {
-                    let error = NSError(domain: "com.GiphySwift", code: 900, userInfo: ["Reason":"Could not downcast model to GiphyResult of type \(T.self)"])
-                    completionHandler(GiphyResult<T>.error(error))
-                    return
-                }
-                
-                let giphyResultProperties = GiphyResultProperties(with: json["pagination"])
-                
-                completionHandler(GiphyResult<T>.success(result: imageResults, properties: giphyResultProperties))
-            }
+            let urlRequest = URLRequest(url: url)
             
-        }.resume()
+            URLSession.shared.dataTask(with: urlRequest){ (data, response, error) in
+                
+                if let error = error {
+                    completionHandler(GiphyResult<T>.error(error))
+                }
+                
+                if let data = data,
+                    error == nil,
+                    let jsonDict = try? JSONSerialization.jsonObject(with: data, options: []) as? JSON,
+                    let json = jsonDict {
+                    
+                    guard let responseMeta = json["meta"] as? JSON,
+                        let status = responseMeta["status"] as? Int,
+                        let msg = responseMeta["msg"] as? String
+                    else {
+                        let error = NSError(domain: "com.GiphySwift", code: 900, userInfo: ["Reason":"Could not parse JSON response"])
+                        completionHandler(GiphyResult<T>.error(error))
+                        return
+                    }
+                    
+                    guard status == 200 else {
+                        let error = NSError(domain: "com.GiphySwift", code: status, userInfo: ["Reason":msg.capitalized])
+                        completionHandler(GiphyResult<T>.error(error))
+                        return
+                    }
+                    
+                    guard let data = jsonArray(from: json["data"]) else {
+                        let error = NSError(domain: "com.GiphySwift", code: 900, userInfo: ["Reason":"Could not parse data property from JSON response"])
+                        completionHandler(GiphyResult<T>.error(error))
+                        return
+                    }
+                    
+                    guard let imageResults = data.flatMap(T.Iterator.Element.init) as? T else {
+                        let error = NSError(domain: "com.GiphySwift", code: 900, userInfo: ["Reason":"Could not downcast model to GiphyResult of type \(T.self)"])
+                        completionHandler(GiphyResult<T>.error(error))
+                        return
+                    }
+                    
+                    let giphyResultProperties = GiphyResultProperties(with: json["pagination"])
+                    
+                    completionHandler(GiphyResult<T>.success(result: imageResults, properties: giphyResultProperties))
+                }
+                
+            }.resume()
+        }
     }
     
     static private func jsonArray(from json: AnyObject?) -> [JSON]? {

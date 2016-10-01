@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct GiphyRandomImageResult: GiphyModelRequestable {
+public struct GiphyRandomImageResult: GiphyImage, GiphyModelRequestable {
     
     public struct Images {
         public let fixedHeight: Giphy.Image.RandomFixedHeight

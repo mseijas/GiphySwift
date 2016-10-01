@@ -12,7 +12,10 @@ protocol GiphyModelRequestable {
     init?(json: JSON)
 }
 
-public struct GiphyImageResult: GiphyModelRequestable {
+public protocol GiphyImage { }
+
+
+public struct GiphyImageResult: GiphyImage, GiphyModelRequestable {
     
     public struct Images {
         public let fixedHeight: Giphy.Image.FixedHeight
@@ -101,7 +104,7 @@ public struct GiphyImageResult: GiphyModelRequestable {
     public let importDate: Date
     public let trendingDate: Date
 
-    let images: Images
+    public let images: Images
     
     init?(json: JSON) {
         guard let id = json["id"] as? String,

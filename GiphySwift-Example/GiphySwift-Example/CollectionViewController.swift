@@ -36,7 +36,7 @@ class CollectionViewController: UICollectionViewController {
         requestImages(with: config, searchText: nil)
         title = "\(config.section.title): \(config.row.title)"
         
-        layout.headerReferenceSize = CGSize(width: 100, height: displaySearchBar == true ? 44 : 0)
+        layout.headerReferenceSize = CGSize(width: view.frame.size.width, height: displaySearchBar == true ? 44 : 0)
         layout.itemSize = CGSize(width: 120, height: 120)
         collectionView?.collectionViewLayout = layout
         
