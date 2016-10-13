@@ -37,7 +37,9 @@ extension GiphyRequest {
                 let url = Search.urlPrefix
                 
                 switch self {
-                case .search(let phrase): return url + "/search?q=\(phrase.replacingOccurrences(of: " ", with: "+"))"
+                case .search(let phrase):
+                    let phrase = phrase.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? phrase
+                    return url + "/search?q=\(phrase.replacingOccurrences(of: " ", with: "+"))"
                 }
             }
         }
@@ -50,7 +52,9 @@ extension GiphyRequest {
                 let url = Translate.urlPrefix
                 
                 switch self {
-                case .translate(let phrase): return url + "?s=\(phrase.replacingOccurrences(of: " ", with: "+"))"
+                case .translate(let phrase):
+                    let phrase = phrase.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? phrase
+                    return url + "?s=\(phrase.replacingOccurrences(of: " ", with: "+"))"
                 }
             }
         }
@@ -64,7 +68,10 @@ extension GiphyRequest {
                 
                 switch self {
                 case .random(let tag):
-                    if let tag = tag { return url + "?tag=\(tag.replacingOccurrences(of: " ", with: "+"))" }
+                    if let tag = tag {
+                        let tag = tag.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? tag
+                        return url + "?tag=\(tag.replacingOccurrences(of: " ", with: "+"))"
+                    }
                     return url
                 }
             }
@@ -96,7 +103,9 @@ extension GiphyRequest {
                 let url = Search.urlPrefix
                 
                 switch self {
-                case .search(let phrase): return url + "/search?q=\(phrase.replacingOccurrences(of: " ", with: "+"))"
+                case .search(let phrase):
+                    let phrase = phrase.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? phrase
+                    return url + "/search?q=\(phrase.replacingOccurrences(of: " ", with: "+"))"
                 }
             }
         }
@@ -109,7 +118,9 @@ extension GiphyRequest {
                 let url = Translate.urlPrefix
                 
                 switch self {
-                case .translate(let phrase): return url + "?s=\(phrase.replacingOccurrences(of: " ", with: "+"))"
+                case .translate(let phrase):
+                    let phrase = phrase.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? phrase
+                    return url + "?s=\(phrase.replacingOccurrences(of: " ", with: "+"))"
                 }
             }
         }
@@ -123,7 +134,10 @@ extension GiphyRequest {
                 
                 switch self {
                 case .random(let tag):
-                    if let tag = tag { return url + "?tag=\(tag.replacingOccurrences(of: " ", with: "+"))" }
+                    if let tag = tag {
+                        let tag = tag.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? tag
+                        return url + "?tag=\(tag.replacingOccurrences(of: " ", with: "+"))"
+                    }
                     return url
                 }
             }
@@ -147,6 +161,7 @@ extension GiphyRequestable {
         } else {
             url += "?api_key=\(Giphy.apiKey)"
         }
+        
         return URL(string: url)!
     }
 }
