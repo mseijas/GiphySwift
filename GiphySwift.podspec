@@ -91,6 +91,6 @@ Pod::Spec.new do |s|
   s.source_files  = "GiphySwift/GiphySwift", "GiphySwift/GiphySwift/**/*.{h,m}"
   s.exclude_files = "GiphySwift/GiphySwiftTests/*"
 
-  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '3' }
+  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '5' }
 
 end
