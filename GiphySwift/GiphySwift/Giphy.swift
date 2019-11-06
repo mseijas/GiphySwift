@@ -180,16 +180,15 @@ public struct Giphy {
                 
                 if let data = data,
                     error == nil,
-                    let jsonDict = try? JSONSerialization.jsonObject(with: data, options: []) as? JSON,
-                    let json = jsonDict {
-                    
-                    guard let responseMeta = json["meta"] as? JSON,
-                        let status = responseMeta["status"] as? Int,
-                        let msg = responseMeta["msg"] as? String
-                    else {
-                        let error = NSError(domain: "com.GiphySwift", code: 900, userInfo: ["Reason":"Could not parse JSON response"])
-                        completionHandler(GiphyResult<T>.error(error))
-                        return
+                    let jsonDict = try? JSONSerialization.jsonObject(with: data, options: []),
+                    let json = jsonDict as? JSON {
+                        guard let responseMeta = json["meta"] as? JSON,
+                            let status = responseMeta["status"] as? Int,
+                            let msg = responseMeta["msg"] as? String
+                        else {
+                            let error = NSError(domain: "com.GiphySwift", code: 900, userInfo: ["Reason":"Could not parse JSON response"])
+                            completionHandler(GiphyResult<T>.error(error))
+                            return
                     }
                     
                     guard status == 200 else {
@@ -204,7 +203,7 @@ public struct Giphy {
                         return
                     }
                     
-                    guard let imageResults = data.flatMap(T.Iterator.Element.init) as? T else {
+                    guard let imageResults = data.compactMap(T.Iterator.Element.init) as? T else {
                         let error = NSError(domain: "com.GiphySwift", code: 900, userInfo: ["Reason":"Could not downcast model to GiphyResult of type \(T.self)"])
                         completionHandler(GiphyResult<T>.error(error))
                         return
