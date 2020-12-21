@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   s.description  = <<-DESC
-                   GiphySwift is an easy-to-use framework that allows you to interact with the Giphy API on iOS. Written in Swift 3.
+                   GiphySwift is an easy-to-use framework that allows you to interact with the Giphy API on iOS. Written in Swift 5.
                    DESC
 
   s.homepage     = "http://github.com/mseijas/GiphySwift"
@@ -91,6 +91,6 @@ Pod::Spec.new do |s|
   s.source_files  = "GiphySwift/GiphySwift", "GiphySwift/GiphySwift/**/*.{h,m}"
   s.exclude_files = "GiphySwift/GiphySwiftTests/*"
 
-  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '3' }
+  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '5' }
 
 end

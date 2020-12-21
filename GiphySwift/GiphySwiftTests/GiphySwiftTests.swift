@@ -33,18 +33,32 @@ class GiphySwiftTests: XCTestCase {
 //        }
 //    }
     
-    func testSomething() {
-//        Giphy.request(.search(phrase: "britney"))
-        Giphy.request(.search(phrase: "britney")) { (data, response, error) in
-            print("data: \(data)")
-            print("response: \(response)")
-            print("error: \(error)")
-
-            if let data = data,
-                let json = try? JSONSerialization.jsonObject(with: data, options: []) {
-
-                print(json)
-                
+    func testSearch() {
+        let expectation = XCTestExpectation(description: "Search gifs loaded")
+        Giphy.Gif.request(GiphyRequest.Gif.Search.search("britney")) { (result) in
+            self.handleResult(result)
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 10.0)
+    }
+    
+    func testTrending() {
+        let expectation = XCTestExpectation(description: "Trending gifs loaded")
+        Giphy.Gif.request(GiphyRequest.Gif.trending, limit: 25) { (result: GiphyRequestResult) in
+            self.handleResult(result)
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 10.0)
+    }
+    
+    func handleResult<T>(_ result: GiphyResult<T>) {
+        switch(result) {
+        case .error(let error):
+            XCTFail("Received error: \(error)")
+        case .success(result: let result, properties: let properties):
+            print("Result: \(result)")
+            if let properties = properties {
+                print("Properties: \(properties)")
             }
         }
     }
